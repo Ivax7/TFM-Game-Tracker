@@ -1,0 +1,6 @@
+<nav style="background: #ccc; padding: 10px;">
+  <a routerLink="/register">Register</a> |
+  <a routerLink="/login">Login</a> |
+  <a *ngIf="auth.isLoggedIn()" (click)="logout()" style="cursor:pointer">Logout</a> |
+  <span *ngIf="auth.isLoggedIn()">Bienvenido, {{ auth.getCurrentUser()?.name || auth.getCurrentUser()?.email }}</span>
+</nav>
