@@ -1,6 +1,17 @@
-<form (ngSubmit)="register()">
-  <input [(ngModel)]="email" name="email" placeholder="Email" required>
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
-  <input [(ngModel)]="name" name="name" placeholder="Name">
-  <button type="submit">Register</button>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <input formControlName="email" placeholder="Email" />
+  <div *ngIf="f['email'].invalid && f['email'].touched">
+    <small *ngIf="f['email'].errors?.['required']">Email is required</small>
+    <small *ngIf="f['email'].errors?.['email']">Email is invalid</small>
+  </div>
+
+  <input formControlName="password" type="password" placeholder="Password" />
+  <div *ngIf="f['password'].invalid && f['password'].touched">
+    <small *ngIf="f['password'].errors?.['required']">Password is required</small>
+    <small *ngIf="f['password'].errors?.['minlength']">Minimum 6 characters</small>
+  </div>
+
+  <input formControlName="name" placeholder="Name" />
+
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
 </form>

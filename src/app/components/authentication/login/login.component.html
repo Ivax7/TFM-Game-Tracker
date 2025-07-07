@@ -1,5 +1,15 @@
-<form (ngSubmit)="login()">
-  <input [(ngModel)]="email" name="email" placeholder="Email" required>
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
-  <button type="submit">Login</button>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <input formControlName="email" placeholder="Email" />
+  <div *ngIf="f['email'].invalid && f['email'].touched">
+    <small *ngIf="f['email'].errors?.['required']">Email is required</small>
+    <small *ngIf="f['email'].errors?.['email']">Invalid email</small>
+  </div>
+
+  <input type="password" formControlName="password" placeholder="Password" />
+  <div *ngIf="f['password'].invalid && f['password'].touched">
+    <small *ngIf="f['password'].errors?.['required']">Password is required</small>
+    <small *ngIf="f['password'].errors?.['minlength']">Minimum 6 characters</small>
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
 </form>
