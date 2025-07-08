@@ -8,7 +8,7 @@ import { GameService } from '../../services/game.service';
 })
 export class GameListComponent implements OnInit {
   games: any[] = [];
-  private maxGames = 100;
+  private maxGames = 9;
 
   constructor(private gameService: GameService) {}
 

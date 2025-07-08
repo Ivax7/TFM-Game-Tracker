@@ -10,13 +10,24 @@ export class GameService {
   constructor(private http: HttpClient) {}
 
 getTopRatesGames(page: number = 1): Observable<any> {
-  const today = new Date().toISOString().split('T')[0];
+  const todayDate = new Date();
+  const today = todayDate.toISOString().split('T')[0];
+  
+  const lastMonthDate = new Date(todayDate);
+  lastMonthDate.setMonth(lastMonthDate.getMonth() - 2);
+  const lastMonth = lastMonthDate.toISOString().split('T')[0];
+
+  const nextMonthDate = new Date(todayDate);
+  lastMonthDate.setMonth(nextMonthDate.getMonth() + 2);
+  const nextMonth = nextMonthDate.toISOString().split('T')[0];
 
   const params = new HttpParams()
     .set('key', this.apiKey)
-    .set('ordering', '-rating')
+    .set('ordering', 'recent')
     .set('page_size', '100')
-    .set('dates', `1900-01-01,${today}`)
+    .set('metacritic', '0, 100')
+    .set('dates', `${lastMonth},${nextMonth}`)
+
 
   return this.http.get(`${this.apiUrl}/games`, { params });
 }
