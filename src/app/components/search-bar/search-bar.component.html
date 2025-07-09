@@ -1,0 +1,47 @@
+<div class="position-relative w-100" style="max-width: 400px;">
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Buscar juegos..."
+      [formControl]="searchControl"
+      (blur)="hideSuggestions()"
+      (focus)="showSuggestions = suggestions.length > 0"
+      (keydown.enter)="onGeneralSearch()"
+      aria-label="Buscar juegos"
+      aria-describedby="button-search"
+    />
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      id="button-search"
+      (click)="onGeneralSearch()"
+      aria-label="Buscar"
+    >
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+
+  <div
+    *ngIf="showSuggestions"
+    class="suggestion-box shadow bg-white border rounded mt-1 position-absolute w-100"
+    style="z-index: 1050;"
+  >
+    <div
+      *ngFor="let game of suggestions"
+      class="d-flex align-items-center p-2 suggestion-item"
+      (click)="onSuggestionClick(game)"
+      style="cursor: pointer;"
+    >
+      <img
+        [src]="game.background_image"
+        alt="{{ game.name }}"
+        width="50"
+        height="50"
+        class="me-3 rounded"
+        style="object-fit: cover;"
+      />
+      <span class="text-truncate">{{ game.name }}</span>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
+  // Main page
 getTopRatesGames(page: number = 1): Observable<any> {
   const todayDate = new Date();
   const today = todayDate.toISOString().split('T')[0];
@@ -30,6 +31,23 @@ getTopRatesGames(page: number = 1): Observable<any> {
 
 
   return this.http.get(`${this.apiUrl}/games`, { params });
+}
+
+  // Search Bar
+  searchGames(query: string, page: number = 1): Observable<any> {
+    const params = new HttpParams()
+      .set('key', this.apiKey)
+      .set('search', query)
+      .set('page_size', '20')
+      .set('page', page);
+
+    return this.http.get(`${this.apiUrl}/games`, { params });
+  }
+
+  // Game x Id
+  getGameDetails(id: string): Observable<any> {
+  const params = new HttpParams().set('key', this.apiKey);
+  return this.http.get(`${this.apiUrl}/games/${id}`, { params });
 }
 
 }

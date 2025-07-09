@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { GameListComponent } from './components/game-list/game-list.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
-
+import { GameDetailComponent } from './components/game-detail/game-detail.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 const routes: Routes = [
   { 
@@ -25,9 +26,17 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { 
+    path: 'game/:id', 
+    component: GameDetailComponent
+  },
+  { 
+    path: 'search/:query',
+    component: SearchResultComponent
+  },
+  { 
     path: '**', 
     component: GameListComponent
-  }
+  },
 ];
 
 @NgModule({

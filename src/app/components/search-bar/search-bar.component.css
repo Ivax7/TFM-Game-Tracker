@@ -1,0 +1,14 @@
+.suggestion-box {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.suggestion-item:hover {
+  background-color: #f8f9fa; /* gris claro hover */
+}
+
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

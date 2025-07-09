@@ -1,0 +1,7 @@
+<div *ngIf="game">
+  <h2>{{ game.name }}</h2>
+  <img *ngIf="game.background_image" [src]="game.background_image" [alt]="game.name" />
+  <p>📅 Release: {{ game.released }}</p>
+  <p>⭐ Rating: {{ game.rating }} / {{ game.rating_top }}</p>
+  <p>{{ game.description_raw }}</p>
+</div>

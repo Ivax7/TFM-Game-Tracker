@@ -12,6 +12,9 @@ import { RegisterComponent } from './components/authentication/register/register
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { GameDetailComponent } from './components/game-detail/game-detail.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     NavComponent,
     LoginComponent,
     RegisterComponent,
+    SearchBarComponent,
+    GameDetailComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
