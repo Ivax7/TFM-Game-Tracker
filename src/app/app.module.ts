@@ -15,6 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { GameDetailComponent } from './components/game-detail/game-detail.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { UserProfileComponent } from './components/authentication/user-profile/user-profile.component';
+import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
+import { PlayedComponent } from './components/authentication/user-profile/played/played.component';
+import { ListsComponent } from './components/authentication/user-profile/lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { SearchResultComponent } from './components/search-result/search-result.
     SearchBarComponent,
     GameDetailComponent,
     SearchResultComponent,
+    UserProfileComponent,
+    WishlistComponent,
+    PlayedComponent,
+    ListsComponent,
   ],
   imports: [
     BrowserModule,

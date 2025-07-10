@@ -12,11 +12,20 @@
         <li class="nav-item" *ngIf="auth.isLoggedIn()">
           <a class="nav-link" style="cursor:pointer" (click)="logout()">Logout</a>
         </li>
+
       </ul>
       <span class="navbar-text me-3" *ngIf="auth.isLoggedIn()">
         Bienvenido, {{ auth.getCurrentUser()?.name || auth.getCurrentUser()?.email }}
       </span>
-      <app-search-bar></app-search-bar>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <app-search-bar></app-search-bar>
+        </li>
+        <li class="nav-item" *ngIf="auth.isLoggedIn()">
+          <a class="nav-link" routerLink="/profile" *ngIf="auth.isLoggedIn()">Profile</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

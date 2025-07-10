@@ -5,6 +5,7 @@ import { LoginComponent } from './components/authentication/login/login.componen
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { GameDetailComponent } from './components/game-detail/game-detail.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { UserProfileComponent } from './components/authentication/user-profile/user-profile.component';
 
 const routes: Routes = [
   { 
@@ -34,9 +35,14 @@ const routes: Routes = [
     component: SearchResultComponent
   },
   { 
-    path: '**', 
-    component: GameListComponent
+    path: 'profile',
+    component: UserProfileComponent
   },
+  // { 
+  //   path: '**', 
+  //   component: GameListComponent
+  // },
+  
 ];
 
 @NgModule({

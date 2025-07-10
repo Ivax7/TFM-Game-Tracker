@@ -1,0 +1,18 @@
+<div class="container py-4">
+  <div class="text-center mb-4">
+    <img src="/src/assets/images/profile-pic.jpg" alt="User Avatar" class="rounded-circle mb-2" width="100" height="100">
+    <h4>{{ username }}</h4>
+  </div>
+
+  <div class="d-flex justify-content-center mb-4">
+    <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'wishlist', 'btn-outline-primary': activeTab !== 'wishlist' }" (click)="activeTab = 'wishlist'">Wishlist</button>
+    <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'played', 'btn-outline-primary': activeTab !== 'played' }" (click)="activeTab = 'played'">Played</button>
+    <button class="btn" [ngClass]="{ 'btn-primary': activeTab === 'lists', 'btn-outline-primary': activeTab !== 'lists' }" (click)="activeTab = 'lists'">Lists</button>
+  </div>
+
+  <div [ngSwitch]="activeTab">
+    <app-wishlist *ngSwitchCase="'wishlist'"></app-wishlist>
+    <app-played *ngSwitchCase="'played'"></app-played>
+    <app-lists *ngSwitchCase="'lists'"></app-lists>
+  </div>
+</div>
