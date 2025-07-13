@@ -1,1 +1,19 @@
-<p class="text-center text-muted">Tu wishlist está vacía por ahora.</p>
+<div *ngIf="playedGames.length === 0">
+  <p>No has marcado ningún juego como jugado.</p>
+</div>
+<div *ngIf="playedGames.length > 0" class="row g-4">
+  <div *ngFor="let game of playedGames" class="col-md-6 col-lg-4">
+    <div class="card h-100 shadow-sm">
+      <img
+        *ngIf="game.gameImage"
+        [src]="game.gameImage"
+        [alt]="game.gameName"
+        class="card-img-top"
+        style="object-fit: cover; height: 200px;"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ game.gameName }}</h5>
+      </div>
+    </div>
+  </div>
+</div>

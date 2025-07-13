@@ -18,6 +18,10 @@
               📅 Released: {{ game.released }} <br />
               ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
             </p>
+              <div *ngIf="auth.isLoggedIn()" class="mt-2 d-flex gap-2">
+                <button class="btn btn-outline-primary btn-sm" (click)="addToWishlist(game)">Add to Wishlist</button>
+                <button class="btn btn-outline-success btn-sm" (click)="markAsPlayed(game)">Mark as Played</button>
+              </div>
           </div>
         </div>
       </div>
