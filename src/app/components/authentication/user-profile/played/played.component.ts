@@ -23,4 +23,17 @@ export class PlayedComponent implements OnInit {
       error: (err) => console.error('Error cargando juegos jugados:', err)
     });
   }
+
+  togglePlayed(game: any) {
+  const userId = this.auth.getCurrentUser()?.id;
+  if (!userId) return;
+
+  this.userGameService.unmarkAsPlayed(userId, game.gameId).subscribe({
+    next: () => {
+      this.playedGames = this.playedGames.filter(g => g.gameId !== game.gameId);
+    },
+    error: (err) => console.error('Error eliminando de jugados:', err)
+  });
+}
+
 }

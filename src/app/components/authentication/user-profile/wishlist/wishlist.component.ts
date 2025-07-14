@@ -24,4 +24,17 @@ export class WishlistComponent implements OnInit {
       error: (err) => console.error('Error cargando wishlist:', err)
     });
   }
+  toggleWishlist(game: any) {
+  const userId = this.auth.getCurrentUser()?.id;
+  if (!userId) return;
+
+  this.userGameService.removeFromWishlist(userId, game.gameId).subscribe({
+    next: () => {
+      // Actualizamos la lista local eliminando el juego
+      this.wishlist = this.wishlist.filter(g => g.gameId !== game.gameId);
+    },
+    error: (err) => console.error('Error eliminando de wishlist:', err)
+  });
+}
+
 }

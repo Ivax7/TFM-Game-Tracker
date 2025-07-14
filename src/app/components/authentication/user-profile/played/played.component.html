@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="playedGames.length > 0" class="row g-4">
   <div *ngFor="let game of playedGames" class="col-md-6 col-lg-4">
-    <div class="card h-100 shadow-sm">
+    <div class="card h-100 shadow-sm position-relative">
       <img
         *ngIf="game.gameImage"
         [src]="game.gameImage"
@@ -13,6 +13,14 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ game.gameName }}</h5>
+        <button
+          class="btn btn-sm btn-danger"
+          (click)="togglePlayed(game)"
+          title="Eliminar de jugados"
+          style="position: absolute; top: 10px; right: 10px;"
+        >
+          ✖
+        </button>
       </div>
     </div>
   </div>

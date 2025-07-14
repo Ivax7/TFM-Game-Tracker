@@ -93,28 +93,28 @@ export class GameListComponent implements OnInit {
       error: (err) => console.error('❌ Error removing from wishlist:', err)
     });
   } else {
-    this.userGameService.addToWishlist(userId, game).subscribe({
-      next: () => this.wishlistGameIds.add(game.id),
-      error: (err) => console.error('❌ Error adding to wishlist:', err)
-    });
+      this.userGameService.addToWishlist(userId, game).subscribe({
+        next: () => this.wishlistGameIds.add(game.id),
+        error: (err) => console.error('❌ Error adding to wishlist:', err)
+      });
+    }
   }
-}
 
-togglePlayed(game: any): void {
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
+  togglePlayed(game: any): void {
+    const userId = this.auth.getCurrentUser()?.id;
+    if (!userId) return;
 
-  if (this.isPlayed(game.id)) {
-    this.userGameService.unmarkAsPlayed(userId, game.id).subscribe({
-      next: () => this.playedGameIds.delete(game.id),
-      error: (err) => console.error('❌ Error unmarking played:', err)
-    });
-  } else {
-    this.userGameService.markAsPlayed(userId, game).subscribe({
-      next: () => this.playedGameIds.add(game.id),
-      error: (err) => console.error('❌ Error marking as played:', err)
-    });
+    if (this.isPlayed(game.id)) {
+      this.userGameService.unmarkAsPlayed(userId, game.id).subscribe({
+        next: () => this.playedGameIds.delete(game.id),
+        error: (err) => console.error('❌ Error unmarking played:', err)
+      });
+    } else {
+      this.userGameService.markAsPlayed(userId, game).subscribe({
+        next: () => this.playedGameIds.add(game.id),
+        error: (err) => console.error('❌ Error marking as played:', err)
+      });
+    }
   }
-}
 
 }
