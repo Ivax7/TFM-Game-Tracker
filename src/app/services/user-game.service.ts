@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class UserGameService {
@@ -25,11 +26,21 @@ export class UserGameService {
     });
   }
 
-  getWishlist(userId: number) {
-    return this.http.get(`${this.apiUrl}/wishlist/${userId}`);
+  getWishlist(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/wishlist/${userId}`);
   }
 
-  getPlayed(userId: number) {
-    return this.http.get(`${this.apiUrl}/played/${userId}`);
+  getPlayed(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/played/${userId}`);
   }
+
+  removeFromWishlist(userId: number, gameId: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/wishlist/${userId}/${gameId}`);
+  }
+
+  unmarkAsPlayed(userId: number, gameId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/played/${userId}/${gameId}`);
+  }
+
 }
+
