@@ -1,7 +1,19 @@
-<div *ngIf="game">
-  <h2>{{ game.name }}</h2>
-  <img *ngIf="game.background_image" [src]="game.background_image" [alt]="game.name" />
-  <p>📅 Release: {{ game.released }}</p>
-  <p>⭐ Rating: {{ game.rating }} / {{ game.rating_top }}</p>
-  <p>{{ game.description_raw }}</p>
+<div *ngIf="game" class="game-detail-container">
+  <div class="game-hero">
+    <img
+      *ngIf="game.background_image"
+      [src]="game.background_image"
+      [alt]="game.name"
+      class="game-hero-image"
+    />
+    <div class="game-title-overlay">
+      <h1>{{ game.name }}</h1>
+    </div>
+  </div>
+
+  <div class="game-info container mt-4">
+    <p class="text-muted mb-2">📅 Release: {{ game.released }}</p>
+    <p class="text-muted mb-3">⭐ Rating: {{ game.rating }} / {{ game.rating_top }}</p>
+    <p class="game-description">{{ game.description_raw }}</p>
+  </div>
 </div>

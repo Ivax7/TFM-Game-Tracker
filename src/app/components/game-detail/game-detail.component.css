@@ -1,0 +1,42 @@
+.game-detail-container {
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+}
+
+.game-hero {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  overflow: hidden;
+}
+
+.game-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.game-title-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.game-title-overlay h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.game-info {
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.game-description {
+  white-space: pre-line;
+}

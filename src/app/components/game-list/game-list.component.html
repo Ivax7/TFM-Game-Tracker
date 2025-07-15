@@ -4,13 +4,12 @@
   <div *ngIf="games.length > 0; else loading">
     <div class="row g-4">
       <div *ngFor="let game of games" class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm" (click)="goToDetail(game.id)" style="cursor: pointer;">
           <img
             *ngIf="game.background_image"
             [src]="game.background_image"
             [alt]="game.name"
-            class="card-img-top"
-            style="object-fit: cover; height: 200px;"
+            class="card-img-top zoom-image"
           />
           <div class="card-body">
             <h5 class="card-title">{{ game.name }}</h5>
@@ -23,7 +22,7 @@
               <button
                 class="btn btn-sm"
                 [ngClass]="isInWishlist(game.id) ? 'btn-danger' : 'btn-outline-primary'"
-                (click)="toggleWishlist(game)"
+                (click)="toggleWishlist(game); $event.stopPropagation()"
               >
                 {{ isInWishlist(game.id) ? 'Remove from Wishlist ❤️' : 'Add to Wishlist' }}
               </button>
@@ -31,8 +30,8 @@
               <button
                 class="btn btn-sm"
                 [ngClass]="isPlayed(game.id) ? 'btn-warning' : 'btn-outline-success'"
-                (click)="togglePlayed(game)"
-              >
+                (click)="togglePlayed(game); $event.stopPropagation()"
+                >
                 {{ isPlayed(game.id) ? 'Unmark Played ✅' : 'Mark as Played' }}
               </button>
             </div>

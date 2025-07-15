@@ -14,5 +14,6 @@ export class UserProfileComponent {
     const user = this.auth.getCurrentUser();
     this.username = user?.name || user?.email || 'Usuario';
   }
+  
 }
 

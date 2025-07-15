@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { AuthService } from '../authentication/auth.service';
 import { UserGameService } from '../../services/user-game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-list',
@@ -17,7 +18,8 @@ export class GameListComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private userGameService: UserGameService,
-    public auth: AuthService
+    public auth: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -28,11 +30,9 @@ export class GameListComponent implements OnInit {
     this.gameService.getTopRatesGames().subscribe({
       next: (data) => {
         this.games = data.results.slice(0, this.maxGames);
-        this.loadUserGameStates(); // 🚀 Cargar wishlist y played después de juegos
+        this.loadUserGameStates();
       },
-      error: (err) => {
-        console.error('Error al cargar juegos:', err);
-      }
+      error: (err) => console.error('Error al cargar juegos:', err)
     });
   }
 
@@ -63,36 +63,16 @@ export class GameListComponent implements OnInit {
     return this.playedGameIds.has(gameId);
   }
 
-  addToWishlist(game: any) {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId || this.isInWishlist(game.id)) return;
-
-    this.userGameService.addToWishlist(userId, game).subscribe({
-      next: () => this.wishlistGameIds.add(game.id),
-      error: (err: any) => console.error('❌ Error wishlist:', err)
-    });
-  }
-
-  markAsPlayed(game: any) {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId || this.isPlayed(game.id)) return;
-
-    this.userGameService.markAsPlayed(userId, game).subscribe({
-      next: () => this.playedGameIds.add(game.id),
-      error: (err: any) => console.error('❌ Error played:', err)
-    });
-  }
-
   toggleWishlist(game: any): void {
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
+    const userId = this.auth.getCurrentUser()?.id;
+    if (!userId) return;
 
-  if (this.isInWishlist(game.id)) {
-    this.userGameService.removeFromWishlist(userId, game.id).subscribe({
-      next: () => this.wishlistGameIds.delete(game.id),
-      error: (err) => console.error('❌ Error removing from wishlist:', err)
-    });
-  } else {
+    if (this.isInWishlist(game.id)) {
+      this.userGameService.removeFromWishlist(userId, game.id).subscribe({
+        next: () => this.wishlistGameIds.delete(game.id),
+        error: (err) => console.error('❌ Error removing from wishlist:', err)
+      });
+    } else {
       this.userGameService.addToWishlist(userId, game).subscribe({
         next: () => this.wishlistGameIds.add(game.id),
         error: (err) => console.error('❌ Error adding to wishlist:', err)
@@ -117,4 +97,7 @@ export class GameListComponent implements OnInit {
     }
   }
 
+  goToDetail(gameId: number): void {
+    this.router.navigate(['/game', gameId]);
+  }
 }
