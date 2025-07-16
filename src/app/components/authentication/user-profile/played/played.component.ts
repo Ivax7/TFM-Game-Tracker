@@ -24,16 +24,26 @@ export class PlayedComponent implements OnInit {
     });
   }
 
-  togglePlayed(game: any) {
+moveToWishlist(game: any) {
   const userId = this.auth.getCurrentUser()?.id;
   if (!userId) return;
 
-  this.userGameService.unmarkAsPlayed(userId, game.gameId).subscribe({
+  this.userGameService.addToWishlist(userId, {
+    id: game.gameId,
+    name: game.gameName,
+    background_image: game.gameImage
+  }).subscribe({
     next: () => {
-      this.playedGames = this.playedGames.filter(g => g.gameId !== game.gameId);
+      this.userGameService.unmarkAsPlayed(userId, game.gameId).subscribe({
+        next: () => {
+          this.playedGames = this.playedGames.filter(g => g.gameId !== game.gameId);
+        },
+        error: (err) => console.error('Error eliminando de jugados:', err)
+      });
     },
-    error: (err) => console.error('Error eliminando de jugados:', err)
+    error: (err) => console.error('Error añadiendo a wishlist:', err)
   });
 }
+
 
 }

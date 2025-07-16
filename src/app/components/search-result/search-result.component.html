@@ -3,11 +3,30 @@
 
   <div *ngIf="games.length; else noResults" class="row g-4">
     <div *ngFor="let game of games" class="col-md-4">
-      <div class="card">
+      <div class="card h-100 shadow-sm">
         <img [src]="game.background_image" class="card-img-top" *ngIf="game.background_image" />
+
         <div class="card-body">
           <h5 class="card-title">{{ game.name }}</h5>
           <p class="card-text">⭐ {{ game.rating }}</p>
+
+          <div *ngIf="auth.isLoggedIn()" class="d-flex gap-2 flex-wrap mt-2">
+            <button
+              class="btn btn-sm"
+              [ngClass]="isInWishlist(game.id) ? 'btn-danger' : 'btn-outline-primary'"
+              (click)="toggleWishlist(game)"
+            >
+              {{ isInWishlist(game.id) ? 'Remove from Wishlist ❤️' : 'Add to Wishlist' }}
+            </button>
+
+            <button
+              class="btn btn-sm"
+              [ngClass]="isPlayed(game.id) ? 'btn-warning' : 'btn-outline-success'"
+              (click)="togglePlayed(game)"
+            >
+              {{ isPlayed(game.id) ? 'Unmark Played ✅' : 'Mark as Played' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>

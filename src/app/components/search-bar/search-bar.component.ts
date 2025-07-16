@@ -38,13 +38,14 @@ export class SearchBarComponent {
     const query = this.searchControl.value?.trim();
     if (query) {
       this.showSuggestions = false;
+      this.searchControl.reset();
       this.router.navigate(['/search', query]);
     }
   }
   
   onSuggestionClick(game: any): void {
     this.showSuggestions = false;
-    this.searchControl.setValue(game.name);
+    this.searchControl.reset();
     this.router.navigate(['/game', game.id])
   }
 
@@ -53,4 +54,10 @@ export class SearchBarComponent {
       this.showSuggestions = false;
     }, 200); // Para permitir clic antes de ocultar
   }
+
+  hasValidSearchInput(): boolean {
+  const value = this.searchControl.value;
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
 }

@@ -6,7 +6,7 @@
       placeholder="Buscar juegos..."
       [formControl]="searchControl"
       (blur)="hideSuggestions()"
-      (focus)="showSuggestions = suggestions.length > 0"
+      (focus)="showSuggestions = suggestions.length > 0 && hasValidSearchInput()"
       (keydown.enter)="onGeneralSearch()"
       aria-label="Buscar juegos"
       aria-describedby="button-search"
@@ -23,7 +23,8 @@
   </div>
 
   <div
-    *ngIf="showSuggestions"
+  *ngIf="showSuggestions && hasValidSearchInput()"
+
     class="suggestion-box shadow bg-white border rounded mt-1 position-absolute w-100"
     style="z-index: 1050;"
   >

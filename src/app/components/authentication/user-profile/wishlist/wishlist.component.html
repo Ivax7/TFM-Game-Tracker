@@ -1,6 +1,7 @@
 <div *ngIf="wishlist.length === 0">
   <p>No hay juegos en tu wishlist.</p>
 </div>
+
 <div *ngIf="wishlist.length > 0" class="row g-4">
   <div *ngFor="let game of wishlist" class="col-md-6 col-lg-4">
     <div class="card h-100 shadow-sm position-relative">
@@ -21,6 +22,16 @@
         >
           ✖
         </button>
+
+        <button
+          class="btn btn-sm btn-success"
+          (click)="markAsPlayed(game)"
+          title="Marcar como jugado"
+          style="position: absolute; top: 10px; right: 60px;"
+        >
+          ✅
+        </button>
+
       </div>
     </div>
   </div>

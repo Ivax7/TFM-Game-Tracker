@@ -30,11 +30,34 @@ export class WishlistComponent implements OnInit {
 
   this.userGameService.removeFromWishlist(userId, game.gameId).subscribe({
     next: () => {
-      // Actualizamos la lista local eliminando el juego
       this.wishlist = this.wishlist.filter(g => g.gameId !== game.gameId);
     },
     error: (err) => console.error('Error eliminando de wishlist:', err)
   });
 }
+
+markAsPlayed(game: any): void {
+  const userId = this.auth.getCurrentUser()?.id;
+  if (!userId) return;
+
+  // Primero agregar a played
+  this.userGameService.markAsPlayed(userId, {
+    id: game.gameId,
+    name: game.gameName,
+    background_image: game.gameImage
+  }).subscribe({
+    next: () => {
+      // Luego eliminar de wishlist
+      this.userGameService.removeFromWishlist(userId, game.gameId).subscribe({
+        next: () => {
+          this.wishlist = this.wishlist.filter(g => g.gameId !== game.gameId);
+        },
+        error: (err) => console.error('Error eliminando de wishlist:', err)
+      });
+    },
+    error: (err) => console.error('Error marcando como jugado:', err)
+  });
+}
+
 
 }

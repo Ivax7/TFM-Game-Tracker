@@ -14,13 +14,14 @@
       <div class="card-body">
         <h5 class="card-title">{{ game.gameName }}</h5>
         <button
-          class="btn btn-sm btn-danger"
-          (click)="togglePlayed(game)"
-          title="Eliminar de jugados"
+          class="btn btn-sm btn-primary"
+          (click)="moveToWishlist(game)"
+          title="Volver a wishlist"
           style="position: absolute; top: 10px; right: 10px;"
         >
-          ✖
+          🔄
         </button>
+
       </div>
     </div>
   </div>
