@@ -1,0 +1,40 @@
+<div *ngIf="auth.isLoggedIn()">
+  <!-- Botones para cualquier vista general -->
+  <div *ngIf="!isUserProfile" class="d-flex gap-2 flex-wrap">
+    <button
+      class="btn btn-sm"
+      [ngClass]="isInWishlist ? 'btn-danger' : 'btn-outline-primary'"
+      (click)="toggleWishlist($event)"
+    >
+      {{ isInWishlist ? 'Remove from Wishlist ❤️' : 'Add to Wishlist' }}
+    </button>
+
+    <button
+      class="btn btn-sm"
+      [ngClass]="isPlayed ? 'btn-warning' : 'btn-outline-success'"
+      (click)="togglePlayed($event)"
+    >
+      {{ isPlayed ? 'Unmark Played ✅' : 'Mark as Played' }}
+    </button>
+  </div>
+
+  <!-- USER PROFILE BUTTONS -->
+  <div *ngIf="isUserProfile" class="position-relative">
+    <button
+      class="btn btn-sm btn-success me-2"
+      (click)="markAsPlayed(game)"
+      title="Marcar como jugado"
+    >
+      ✅
+    </button>
+
+    <button
+      class="btn btn-sm btn-danger me-2"
+      (click)="markAsWishlist(game)"
+      title="Eliminar de wishlist"
+    >
+      ✖
+    </button>
+
+  </div>
+</div>

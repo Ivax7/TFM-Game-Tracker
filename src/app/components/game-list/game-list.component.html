@@ -17,25 +17,8 @@
               📅 Released: {{ game.released }} <br />
               ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
             </p>
-
-            <div *ngIf="auth.isLoggedIn()" class="mt-2 d-flex gap-2 flex-wrap">
-              <button
-                class="btn btn-sm"
-                [ngClass]="isInWishlist(game.id) ? 'btn-danger' : 'btn-outline-primary'"
-                (click)="toggleWishlist(game); $event.stopPropagation()"
-              >
-                {{ isInWishlist(game.id) ? 'Remove from Wishlist ❤️' : 'Add to Wishlist' }}
-              </button>
-
-              <button
-                class="btn btn-sm"
-                [ngClass]="isPlayed(game.id) ? 'btn-warning' : 'btn-outline-success'"
-                (click)="togglePlayed(game); $event.stopPropagation()"
-                >
-                {{ isPlayed(game.id) ? 'Unmark Played ✅' : 'Mark as Played' }}
-              </button>
-            </div>
-
+            
+            <app-game-action-buttons [game]="game"></app-game-action-buttons>
           </div>
         </div>
       </div>

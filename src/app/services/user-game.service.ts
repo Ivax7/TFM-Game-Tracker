@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { switchMap } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class UserGameService {
@@ -42,5 +43,14 @@ export class UserGameService {
     return this.http.delete(`${this.apiUrl}/played/${userId}/${gameId}`);
   }
 
+  addGameToPlayedAndRemoveFromWishlist(userId: number, game: any): Observable<any> {
+    return this.markAsPlayed(userId, {
+      id: game.gameId,
+      name: game.gameName,
+      background_image: game.gameImage
+    }).pipe(
+      switchMap(() => this.removeFromWishlist(userId, game.gameId))
+    );
+  }
 }
 

@@ -19,6 +19,7 @@ import { UserProfileComponent } from './components/authentication/user-profile/u
 import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
 import { PlayedComponent } from './components/authentication/user-profile/played/played.component';
 import { ListsComponent } from './components/authentication/user-profile/lists/lists.component';
+import { GameActionButtonsComponent } from './components/game-action-buttons/game-action-buttons.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ListsComponent } from './components/authentication/user-profile/lists/l
     WishlistComponent,
     PlayedComponent,
     ListsComponent,
+    GameActionButtonsComponent,
   ],
   imports: [
     BrowserModule,

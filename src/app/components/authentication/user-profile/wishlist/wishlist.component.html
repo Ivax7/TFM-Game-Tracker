@@ -14,23 +14,13 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ game.gameName }}</h5>
-        <button
-          class="btn btn-sm btn-danger"
-          (click)="toggleWishlist(game)"
-          title="Eliminar de wishlist"
-          style="position: absolute; top: 10px; right: 10px;"
-        >
-          ✖
-        </button>
+        
+        <app-game-action-buttons
+          [game] = "game"
+          [isUserProfile]="true"
+          (gameUpdated)="onGameListUpdate($event)"
 
-        <button
-          class="btn btn-sm btn-success"
-          (click)="markAsPlayed(game)"
-          title="Marcar como jugado"
-          style="position: absolute; top: 10px; right: 60px;"
-        >
-          ✅
-        </button>
+        ></app-game-action-buttons>
 
       </div>
     </div>
