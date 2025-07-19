@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="wishlist.length > 0" class="row g-4">
-  <div *ngFor="let game of wishlist" class="col-md-6 col-lg-4">
+  <div *ngFor="let game of wishlist.slice().reverse()" class="col-md-6 col-lg-4">
     <div class="card h-100 shadow-sm position-relative">
       <img
         *ngIf="game.gameImage"
@@ -15,11 +15,11 @@
       <div class="card-body">
         <h5 class="card-title">{{ game.gameName }}</h5>
         
+        <!-- BUTTONS -->
         <app-game-action-buttons
           [game] = "game"
           [isUserProfile]="true"
           (gameUpdated)="onGameListUpdate($event)"
-
         ></app-game-action-buttons>
 
       </div>

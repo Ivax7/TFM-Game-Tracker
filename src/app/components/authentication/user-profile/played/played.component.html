@@ -2,7 +2,7 @@
   <p>No has marcado ningún juego como jugado.</p>
 </div>
 <div *ngIf="playedGames.length > 0" class="row g-4">
-  <div *ngFor="let game of playedGames" class="col-md-6 col-lg-4">
+  <div *ngFor="let game of playedGames.slice().reverse()" class="col-md-6 col-lg-4">
     <div class="card h-100 shadow-sm position-relative">
       <img
         *ngIf="game.gameImage"

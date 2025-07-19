@@ -94,12 +94,12 @@ export class GameActionButtonsComponent implements OnInit {
       background_image: this.gameImage
     };
 
-    this.userGameService.addGameToPlayedAndRemoveFromWishlist(userId, gameToSend).subscribe({
+    this.userGameService.markAsPlayed(userId, gameToSend).subscribe({
       next: () => {
         this.isPlayed = true;
-        this.isInWishlist = false;  // también actualizamos el estado local
+        this.isInWishlist = false;
       },
-      error: err => console.error('❌ Error marking as played:', err)
+      error: err => console.log('❌ Error marking as played:', err)
     });
   }
 }
@@ -114,11 +114,8 @@ markAsWishlist(game: any) {
 
   this.userGameService.removeFromWishlist(userId, game.gameId).subscribe({
     next: () => {
-      // no es necesario actualizar `wishlist` aquí directamente
-      // si necesitas emitir evento para que el padre actualice, se puede agregar @Output
       this.isInWishlist = false;
-      this.gameUpdated.emit(this.gameId); // 🚀 notifica al padre
-
+      this.gameUpdated.emit(this.gameId);
     },
     error: err => console.error('❌ Error removiendo de wishlist:', err)
   });
@@ -134,8 +131,7 @@ markAsPlayed(game: any): void {
     next: () => {
       this.isPlayed = true;
       this.isInWishlist = false;
-      this.gameUpdated.emit(this.gameId); // 🚀 notifica al padre
-
+      this.gameUpdated.emit(this.gameId);
     },
     error: err => console.error('❌ Error marcando como jugado:', err)
   });
