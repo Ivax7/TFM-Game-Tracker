@@ -16,9 +16,22 @@
             <p class="card-text">
               📅 Released: {{ game.released }} <br />
               ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
-            </p>
+
+
+                ⏱️ Main Story: 
+                <span *ngIf="!game.loadingPlaytime">
+                  {{ game.playtime ?? 'N/A' }}h
+                </span>
+                <span *ngIf="game.loadingPlaytime">
+                  <i>Cargando...</i>
+                </span>
             
-            <app-game-action-buttons [game]="game"></app-game-action-buttons>
+              </p>
+            
+            
+            
+              <app-game-action-buttons [game]="game"></app-game-action-buttons>
+
           </div>
         </div>
       </div>

@@ -23,13 +23,42 @@ export class GameListComponent implements OnInit {
   }
 
   private loadGames(): void {
-    this.gameService.getTopRatesGames().subscribe({
-      next: (data) => {
-        this.games = data.results.slice(0, this.maxGames);
-      },
-      error: (err) => console.error('Error al cargar juegos:', err)
-    });
-  }
+  this.gameService.getTopRatesGames().subscribe({
+    next: (data) => {
+      const rawGames = data.results.slice(0, this.maxGames);
+
+      // Paso 1: Guardamos los juegos básicos
+      this.games = rawGames.map((game: any) => ({
+        ...game,
+        loadingPlaytime: true,
+        playtimeMain: null
+      }));
+
+      // const randomGame = rawGames[Math.floor(Math.random() * rawGames.length)];
+      // console.log('Juego aleatorio:', randomGame);
+      
+      
+      this.games.forEach((game, index) => {
+        console.log('🔍 Cargando duración para:', game.name, 'Slug:', game.slug);
+        this.gameService.getGameWithPlaytime(game.slug).subscribe({
+          next: (fullGameData) => {
+            this.games[index] = {
+              ...game,
+              ...fullGameData,
+              loadingPlaytime: false
+            };
+          },
+          error: (err) => {
+            console.error('Error cargando duración del juego:', err);
+            this.games[index].loadingPlaytime = false;
+          }
+        });
+      });
+    },
+    error: (err) => console.error('Error al cargar juegos:', err)
+  });
+}
+
 
   goToDetail(gameId: number): void {
     this.router.navigate(['/game', gameId]);

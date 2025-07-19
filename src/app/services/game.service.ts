@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' }) 
 export class GameService {
+  // RAWG - API
   private apiUrl = 'https://api.rawg.io/api';
   private apiKey = '98cf656e3b054483a3d2edafaa6cae58';
 
@@ -48,6 +49,12 @@ getTopRatesGames(page: number = 1): Observable<any> {
   getGameDetails(id: string): Observable<any> {
   const params = new HttpParams().set('key', this.apiKey);
   return this.http.get(`${this.apiUrl}/games/${id}`, { params });
+  }
+  
+  // HL2B
+  getGameWithPlaytime(slug: string): Observable<any> {
+    return this.http.get(`/api/games/${slug}/playtime`);
+  }
 }
 
-}
+
