@@ -9,6 +9,14 @@
         <div class="card-body">
           <h5 class="card-title">{{ game.name }}</h5>
           <p class="card-text">⭐ {{ game.rating }}</p>
+          
+          <!-- HOURS DETAILS -->
+          <app-playtime-display 
+            [loadingPlaytime]="game.loadingPlaytime" 
+            [playtime]="game.playtime">
+          </app-playtime-display>
+          
+          <!-- ACTION BUTTONS -->
           <app-game-action-buttons [game]="game"></app-game-action-buttons>
         </div>
       </div>

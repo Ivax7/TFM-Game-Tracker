@@ -1,0 +1,9 @@
+<p>
+  ⏱️ Main Story:
+  <span *ngIf="!loadingPlaytime">
+    {{ playtime ?? 'N/A' }}h
+  </span>
+  <span *ngIf="loadingPlaytime">
+    <i>Cargando...</i>
+  </span>
+</p>

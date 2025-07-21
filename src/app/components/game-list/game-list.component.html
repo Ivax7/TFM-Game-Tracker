@@ -14,23 +14,20 @@
           <div class="card-body">
             <h5 class="card-title">{{ game.name }}</h5>
             <p class="card-text">
-              📅 Released: {{ game.released }} <br />
+              📅 Released: {{ game.released }}
+            </p>
+            <p>   
               ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
+            </p>
 
+            <!-- HOURS DETAILS -->
+            <app-playtime-display 
+              [loadingPlaytime]="game.loadingPlaytime" 
+              [playtime]="game.playtime">
+            </app-playtime-display>
 
-                ⏱️ Main Story: 
-                <span *ngIf="!game.loadingPlaytime">
-                  {{ game.playtime ?? 'N/A' }}h
-                </span>
-                <span *ngIf="game.loadingPlaytime">
-                  <i>Cargando...</i>
-                </span>
-            
-              </p>
-            
-            
-            
-              <app-game-action-buttons [game]="game"></app-game-action-buttons>
+            <!-- ACTION BUTTONS -->
+            <app-game-action-buttons [game]="game"></app-game-action-buttons>
 
           </div>
         </div>

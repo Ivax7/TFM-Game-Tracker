@@ -14,7 +14,19 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ game.gameName }}</h5>
-        
+        <p class="card-text">
+          📅 Released: {{ game.released }}
+        </p>
+        <p>   
+          ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
+        </p>
+
+        <!-- HOURS DETAILS -->
+        <app-playtime-display 
+          [loadingPlaytime]="game.loadingPlaytime" 
+          [playtime]="game.playtime">
+        </app-playtime-display>
+
         <!-- BUTTONS -->
         <app-game-action-buttons
           [game] = "game"
