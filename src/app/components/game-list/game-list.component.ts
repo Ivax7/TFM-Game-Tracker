@@ -26,17 +26,13 @@ export class GameListComponent implements OnInit {
   this.gameService.getTopRatesGames().subscribe({
     next: (data) => {
       const rawGames = data.results.slice(0, this.maxGames);
+      console.log(rawGames)
 
-      // Paso 1: Guardamos los juegos básicos
       this.games = rawGames.map((game: any) => ({
         ...game,
         loadingPlaytime: true,
         playtimeMain: null
-      }));
-
-      // const randomGame = rawGames[Math.floor(Math.random() * rawGames.length)];
-      // console.log('Juego aleatorio:', randomGame);
-      
+      }));      
       
       this.games.forEach((game, index) => {
         console.log('🔍 Cargando duración para:', game.name, 'Slug:', game.slug);

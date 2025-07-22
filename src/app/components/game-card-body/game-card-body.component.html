@@ -1,0 +1,21 @@
+<img [src]="game.background_image" class="card-img-top" *ngIf="game.background_image" />
+<div class="card-body">
+  <h5 class="card-title">{{ game.name }}</h5>
+  <p class="card-text">⭐ {{ game.rating }}</p>
+  
+  <p>
+    🎮 Genres: 
+      <span *ngFor="let genre of game.genres; let isLast = last">
+      {{ genre.name }}<span *ngIf="!isLast"> - </span>
+      </span>
+  </p>
+
+  <!-- HOURS DETAILS -->
+  <app-playtime-display 
+    [loadingPlaytime]="game.loadingPlaytime" 
+    [playtime]="game.playtime">
+  </app-playtime-display>
+  
+  <!-- ACTION BUTTONS -->
+  <app-game-action-buttons [game]="game"></app-game-action-buttons>
+</div>

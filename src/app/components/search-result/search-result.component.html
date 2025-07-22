@@ -4,21 +4,7 @@
   <div *ngIf="games.length; else noResults" class="row g-4">
     <div *ngFor="let game of games" class="col-md-4">
       <div class="card h-100 shadow-sm" (click)="goToDetail(game.id)" style="cursor: pointer;">
-        <img [src]="game.background_image" class="card-img-top" *ngIf="game.background_image" />
-
-        <div class="card-body">
-          <h5 class="card-title">{{ game.name }}</h5>
-          <p class="card-text">⭐ {{ game.rating }}</p>
-          
-          <!-- HOURS DETAILS -->
-          <app-playtime-display 
-            [loadingPlaytime]="game.loadingPlaytime" 
-            [playtime]="game.playtime">
-          </app-playtime-display>
-          
-          <!-- ACTION BUTTONS -->
-          <app-game-action-buttons [game]="game"></app-game-action-buttons>
-        </div>
+        <app-game-card-body [game]="game"></app-game-card-body>
       </div>
     </div>
   </div>
