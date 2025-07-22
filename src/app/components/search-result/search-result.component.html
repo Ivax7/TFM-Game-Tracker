@@ -3,7 +3,7 @@
 
   <div *ngIf="games.length; else noResults" class="row g-4">
     <div *ngFor="let game of games" class="col-md-4">
-      <div class="card h-100 shadow-sm">
+      <div class="card h-100 shadow-sm" (click)="goToDetail(game.id)" style="cursor: pointer;">
         <img [src]="game.background_image" class="card-img-top" *ngIf="game.background_image" />
 
         <div class="card-body">

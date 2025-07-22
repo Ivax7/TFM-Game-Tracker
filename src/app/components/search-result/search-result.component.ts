@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { UserGameService } from '../../services/user-game.service';
 import { AuthService } from '../authentication/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-result.component.html',
@@ -19,7 +19,8 @@ export class SearchResultComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private gameService: GameService,
-    public auth: AuthService
+    public auth: AuthService,
+    public router: Router
   ) {}
 
 ngOnInit(): void {
@@ -34,6 +35,11 @@ ngOnInit(): void {
         });
       }
     });
+  }
+
+  
+  goToDetail(gameId: number): void {
+    this.router.navigate(['/game', gameId]);
   }
 
 }
