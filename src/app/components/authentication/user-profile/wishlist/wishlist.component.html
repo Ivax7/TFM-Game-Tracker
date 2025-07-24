@@ -4,37 +4,13 @@
 
 <div *ngIf="wishlist.length > 0" class="row g-4">
   <div *ngFor="let game of wishlist.slice().reverse()" class="col-md-6 col-lg-4">
-    <div class="card h-100 shadow-sm position-relative">
-      <img
-        *ngIf="game.gameImage"
-        [src]="game.gameImage"
-        [alt]="game.gameName"
-        class="card-img-top"
-        style="object-fit: cover; height: 200px;"
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{ game.gameName }}</h5>
-        <p class="card-text">
-          📅 Released: {{ game.released }}
-        </p>
-        <p>   
-          ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
-        </p>
-
-        <!-- HOURS DETAILS -->
-        <app-playtime-display 
-          [loadingPlaytime]="game.loadingPlaytime" 
-          [playtime]="game.playtime">
-        </app-playtime-display>
-
-        <!-- BUTTONS -->
-        <app-game-action-buttons
-          [game] = "game"
-          [isUserProfile]="true"
-          (gameUpdated)="onGameListUpdate($event)"
-        ></app-game-action-buttons>
-
-      </div>
+    <div class="card h-100 shadow-sm">
+      <app-game-card-body 
+        [game]="game" 
+        [isUserProfile]="true"
+        (gameUpdated)="onGameListUpdate($event)"
+      >
+      </app-game-card-body>
     </div>
   </div>
 </div>

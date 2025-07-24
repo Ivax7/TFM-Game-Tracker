@@ -1,39 +1,20 @@
+<!-- played.component.html -->
 <div *ngIf="playedGames.length === 0">
   <p>No has marcado ningún juego como jugado.</p>
 </div>
+
 <div *ngIf="playedGames.length > 0" class="row g-4">
   <div *ngFor="let game of playedGames.slice().reverse()" class="col-md-6 col-lg-4">
     <div class="card h-100 shadow-sm position-relative">
-      <img
-        *ngIf="game.gameImage"
-        [src]="game.gameImage"
-        [alt]="game.gameName"
-        class="card-img-top"
-        style="object-fit: cover; height: 200px;"
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{ game.gameName }}</h5>
-        <p class="card-text">
-          📅 Released: {{ game.released }}
-        </p>
-        <p>   
-          ⭐ Rating: {{ game.rating }} / {{ game.rating_top }}
-        </p>
-        <!-- HOURS DETAILS -->
-        <app-playtime-display 
-          [loadingPlaytime]="game.loadingPlaytime" 
-          [playtime]="game.playtime">
-        </app-playtime-display>
-        
-        <button
-          class="btn btn-sm btn-primary"
-          (click)="moveToWishlist(game)"
-          title="Volver a wishlist"
-          style="position: absolute; top: 10px; right: 10px;"
+
+      <!-- Aquí usas el componente reutilizable -->
+      <app-game-card-body
+        [game]="game"
+        [isUserProfile]="true"
+        (gameUpdated)="onGameUpdated($event)"
+        origin="'played'"
         >
-          🔄
-        </button>
-      </div>
+      </app-game-card-body>
     </div>
   </div>
 </div>

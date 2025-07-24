@@ -14,7 +14,7 @@ export class UserGameService {
       userId,
       gameId: game.id,
       gameName: game.name,
-      gameImage: game.background_image
+      gameImage: game.background_image,
     });
   }
 

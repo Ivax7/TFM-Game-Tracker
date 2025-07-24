@@ -1,13 +1,1 @@
-.zoom-image {
-  object-fit: cover;
-  height: 200px;
-  transition: transform 0.3s ease-in-out;
-}
 
-.card {
-  overflow: hidden;
-}
-
-.card:hover .zoom-image {
-  transform: scale(1.1);
-}

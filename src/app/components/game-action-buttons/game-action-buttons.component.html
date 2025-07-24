@@ -24,13 +24,14 @@
       class="btn btn-sm btn-success me-2"
       (click)="markAsPlayed(game)"
       title="Marcar como jugado"
+      *ngIf="!isPlayed"
     >
       ✅
     </button>
 
     <button
       class="btn btn-sm btn-danger me-2"
-      (click)="markAsWishlist(game)"
+      (click)="removeFromPlayed(game)"
       title="Eliminar de wishlist"
     >
       ✖

@@ -17,5 +17,9 @@
   </app-playtime-display>
   
   <!-- ACTION BUTTONS -->
-  <app-game-action-buttons [game]="game"></app-game-action-buttons>
+  <app-game-action-buttons 
+  [game]="game"
+  [isUserProfile]="isUserProfile"
+  (gameUpdated)="onGameUpdated($event)"
+  ></app-game-action-buttons>
 </div>

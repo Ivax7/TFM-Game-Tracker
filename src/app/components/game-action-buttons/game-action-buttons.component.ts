@@ -12,7 +12,7 @@ export class GameActionButtonsComponent implements OnInit {
   @Input() game: any;
   @Input() isUserProfile: boolean = false;
   @Output() gameUpdated = new EventEmitter<number>();
-
+  
   isInWishlist = false;
   isPlayed = false;
 
@@ -105,29 +105,19 @@ export class GameActionButtonsComponent implements OnInit {
 }
 
 
-
  // USER PROFILE ACTIONS
-
-markAsWishlist(game: any) {
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
-
-  this.userGameService.removeFromWishlist(userId, game.gameId).subscribe({
-    next: () => {
-      this.isInWishlist = false;
-      this.gameUpdated.emit(this.gameId);
-    },
-    error: err => console.error('❌ Error removiendo de wishlist:', err)
-  });
-}
 
 markAsPlayed(game: any): void {
   const userId = this.auth.getCurrentUser()?.id;
   if (!userId) return;
 
-  
+    const formattedGame = {
+    gameId: game.gameId ?? game.id,
+    gameName: game.gameName ?? game.name,
+    gameImage: game.gameImage ?? game.background_image,
+  };
 
-  this.userGameService.addGameToPlayedAndRemoveFromWishlist(userId, game).subscribe({
+  this.userGameService.addGameToPlayedAndRemoveFromWishlist(userId, formattedGame).subscribe({
     next: () => {
       this.isPlayed = true;
       this.isInWishlist = false;
@@ -137,5 +127,17 @@ markAsPlayed(game: any): void {
   });
 }
 
+removeFromPlayed(game: any) {
+  const userId = this.auth.getCurrentUser()?.id;
+  if (!userId) return;
+
+  this.userGameService.unmarkAsPlayed(userId, this.gameId).subscribe({
+    next: () => {
+      this.isPlayed = false;
+      this.gameUpdated.emit(this.gameId);
+    },
+    error: err => console.error('❌ Error removiendo de jugados:', err)
+  });
+}
 
 }
