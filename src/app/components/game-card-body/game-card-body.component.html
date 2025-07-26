@@ -1,6 +1,7 @@
 <img [src]="game.background_image" class="card-img-top" *ngIf="game.background_image" />
+
 <div class="card-body">
-  <h5 class="card-title">{{ game.name }}</h5>
+  <h5 class="card-title" (click)="goToDetail(game.id)" style="cursor: pointer;">{{ game.name }}</h5>
   <p class="card-text">⭐ {{ game.rating }}</p>
   
   <p>
@@ -15,11 +16,41 @@
     [loadingPlaytime]="game.loadingPlaytime" 
     [playtime]="game.playtime">
   </app-playtime-display>
-  
+
+  <!-- MODAL -->
+
+  <!-- Botón para abrir el modal -->
+  <button class="btn btn-sm btn-outline-secondary mt-2" (click)="openStatusModal()">
+    Update Game Status
+  </button>
+
+  <!-- Status Modal -->
+  <div #statusModal class="modal fade" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="statusModalLabel">Set Game Status</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled d-flex flex-column gap-2">
+            <li><button class="btn btn-outline-primary" data-bs-dismiss="modal">🎮 Playing</button></li>
+            <li><button class="btn btn-outline-success" data-bs-dismiss="modal">✅ Beaten</button></li>
+            <li><button class="btn btn-outline-info" data-bs-dismiss="modal">🏆 Completed 100%</button></li>
+            <li><button class="btn btn-outline-danger" data-bs-dismiss="modal">🚫 Abandoned</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- ACTION BUTTONS -->
   <app-game-action-buttons 
   [game]="game"
   [isUserProfile]="isUserProfile"
   (gameUpdated)="onGameUpdated($event)"
   ></app-game-action-buttons>
+
 </div>
+

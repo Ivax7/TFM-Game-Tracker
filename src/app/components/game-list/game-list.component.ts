@@ -3,6 +3,7 @@ import { GameService } from '../../services/game.service';
 import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
@@ -55,9 +56,5 @@ export class GameListComponent implements OnInit {
   });
 }
 
-
-  goToDetail(gameId: number): void {
-    this.router.navigate(['/game', gameId]);
-  }
 }
 

@@ -55,6 +55,8 @@ getTopRatesGames(page: number = 1): Observable<any> {
   getGameWithPlaytime(slug: string): Observable<any> {
     return this.http.get(`/api/games/${slug}/playtime`);
   }
+
+
 }
 
 

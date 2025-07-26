@@ -22,6 +22,7 @@ import { ListsComponent } from './components/authentication/user-profile/lists/l
 import { GameActionButtonsComponent } from './components/game-action-buttons/game-action-buttons.component';
 import { PlaytimeDisplayComponent } from './components/playtime-display/playtime-display.component';
 import { GameCardBodyComponent } from './components/game-card-body/game-card-body.component';
+import { GameStatusComponent } from './components/game-status/game-status.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { GameCardBodyComponent } from './components/game-card-body/game-card-bod
     GameActionButtonsComponent,
     PlaytimeDisplayComponent,
     GameCardBodyComponent,
+    GameStatusComponent,
   ],
   imports: [
     BrowserModule,

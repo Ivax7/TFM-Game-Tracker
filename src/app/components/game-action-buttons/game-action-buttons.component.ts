@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserGameService } from '../../services/user-game.service';
 import { AuthService } from '../authentication/auth.service';
 import { Output, EventEmitter } from '@angular/core';
-
+declare var bootstrap: any
 @Component({
   selector: 'app-game-action-buttons',
   templateUrl: './game-action-buttons.component.html',
@@ -12,7 +12,12 @@ export class GameActionButtonsComponent implements OnInit {
   @Input() game: any;
   @Input() isUserProfile: boolean = false;
   @Output() gameUpdated = new EventEmitter<number>();
+
+  @Output() statusClick = new EventEmitter<any>();
   
+  @ViewChild('statusModal') statusModal!: ElementRef;
+
+
   isInWishlist = false;
   isPlayed = false;
 
@@ -139,5 +144,10 @@ removeFromPlayed(game: any) {
     error: err => console.error('❌ Error removiendo de jugados:', err)
   });
 }
+
+  openStatusModal(): void {
+    const modal = new bootstrap.Modal(this.statusModal.nativeElement);
+    modal.show();
+  }
 
 }

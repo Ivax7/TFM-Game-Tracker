@@ -4,10 +4,12 @@
   <div *ngIf="games.length > 0; else loading">
     <div class="row g-4">
       <div *ngFor="let game of games" class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm" (click)="goToDetail(game.id)" style="cursor: pointer;">
-          <app-game-card-body [game]="game"></app-game-card-body>
+        <div class="card h-100 shadow-sm">
+          <app-game-card-body 
+            [game]="game"
+          ></app-game-card-body>
         </div>
-      </div>
+      </div>  
     </div>
   </div>
 </div>
