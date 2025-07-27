@@ -1,0 +1,17 @@
+<h5 class="mb-3">Playing</h5>
+<div *ngIf="games.length > 0; else noGames">
+  <div class="row g-3">
+    <div *ngFor="let game of games" class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img [src]="game.gameImage" class="card-img-top" alt="{{ game.gameName }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ game.gameName }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noGames>
+  <p class="text-muted text-center">No games in Playing</p>
+</ng-template>

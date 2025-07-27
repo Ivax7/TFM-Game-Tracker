@@ -23,6 +23,10 @@ import { GameActionButtonsComponent } from './components/game-action-buttons/gam
 import { PlaytimeDisplayComponent } from './components/playtime-display/playtime-display.component';
 import { GameCardBodyComponent } from './components/game-card-body/game-card-body.component';
 import { GameStatusComponent } from './components/game-status/game-status.component';
+import { BeatenComponent } from './components/authentication/user-profile/status/beaten/beaten.component';
+import { CompletedComponent } from './components/authentication/user-profile/status/completed/completed.component';
+import { AbandonedComponent } from './components/authentication/user-profile/status/abandoned/abandoned.component';
+import { PlayingComponent } from './components/authentication/user-profile/status/playing/playing.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { GameStatusComponent } from './components/game-status/game-status.compon
     PlaytimeDisplayComponent,
     GameCardBodyComponent,
     GameStatusComponent,
+    BeatenComponent,
+    CompletedComponent,
+    AbandonedComponent,
+    PlayingComponent,
   ],
   imports: [
     BrowserModule,

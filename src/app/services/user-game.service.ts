@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { switchMap } from "rxjs";
+import { UpdateUserGameDto } from "../models/update-user-game.dto";
 
 @Injectable({ providedIn: 'root' })
 export class UserGameService {
@@ -52,9 +53,14 @@ export class UserGameService {
       switchMap(() => this.removeFromWishlist(userId, game.gameId))
     );
   }
+updateGameStatus(userId: number, payload: UpdateUserGameDto): Observable<any> {
+  return this.http.put(`${this.apiUrl}/user-game/${userId}/status`, payload);
+}
 
-  updateGameStatus(userId: number, gameId: number, status: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users/${userId}/games/${gameId}/status`, { status });
+
+  getGamesByUser(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user-game/${userId}`);
   }
+
 }
 
