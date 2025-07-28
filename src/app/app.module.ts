@@ -22,7 +22,6 @@ import { ListsComponent } from './components/authentication/user-profile/lists/l
 import { GameActionButtonsComponent } from './components/game-action-buttons/game-action-buttons.component';
 import { PlaytimeDisplayComponent } from './components/playtime-display/playtime-display.component';
 import { GameCardBodyComponent } from './components/game-card-body/game-card-body.component';
-import { GameStatusComponent } from './components/game-status/game-status.component';
 import { BeatenComponent } from './components/authentication/user-profile/status/beaten/beaten.component';
 import { CompletedComponent } from './components/authentication/user-profile/status/completed/completed.component';
 import { AbandonedComponent } from './components/authentication/user-profile/status/abandoned/abandoned.component';
@@ -45,7 +44,6 @@ import { PlayingComponent } from './components/authentication/user-profile/statu
     GameActionButtonsComponent,
     PlaytimeDisplayComponent,
     GameCardBodyComponent,
-    GameStatusComponent,
     BeatenComponent,
     CompletedComponent,
     AbandonedComponent,

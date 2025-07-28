@@ -53,9 +53,9 @@ export class UserGameService {
       switchMap(() => this.removeFromWishlist(userId, game.gameId))
     );
   }
-updateGameStatus(userId: number, payload: UpdateUserGameDto): Observable<any> {
-  return this.http.put(`${this.apiUrl}/user-game/${userId}/status`, payload);
-}
+  updateGameStatus(userId: number, payload: UpdateUserGameDto): Observable<any> {
+    return this.http.put(`${this.apiUrl}/user-game/${userId}/status`, payload);
+  }
 
 
   getGamesByUser(userId: number): Observable<any[]> {

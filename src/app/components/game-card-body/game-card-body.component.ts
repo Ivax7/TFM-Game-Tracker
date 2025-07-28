@@ -41,8 +41,8 @@ export class GameCardBodyComponent {
   }
 
   openStatusModal(): void {
-    this.selectedStatus = null;
-
+    this.selectedStatus = this.game.status || null;
+    console.log(this.selectedStatus)
     const modalEl = this.statusModal.nativeElement;
     this.modalInstance = new bootstrap.Modal(modalEl);
     this.modalInstance.show();
@@ -65,6 +65,8 @@ export class GameCardBodyComponent {
     this.userGameService.updateGameStatus(userId, payload).subscribe({
       next: () => {
         this.selectedStatus = status;
+
+        this.game.status = status
         this.modalInstance?.hide();
         console.log('✅ Estado guardado correctamente:', status);
 
