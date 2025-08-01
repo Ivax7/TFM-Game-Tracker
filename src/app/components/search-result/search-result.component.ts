@@ -14,7 +14,6 @@ export class SearchResultComponent implements OnInit {
   query = '';
 
   wishlistGameIds = new Set<number>();
-  playedGameIds = new Set<number>();
 
   constructor(
     private route: ActivatedRoute,

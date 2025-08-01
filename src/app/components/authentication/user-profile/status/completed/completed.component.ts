@@ -19,8 +19,15 @@ export class CompletedComponent implements OnInit {
     const userId = this.auth.getCurrentUser()?.id;
     if (!userId) return;
 
-    this.userGameService.getGamesByUser(userId).subscribe(allGames => {
+    this.userGameService.getEnrichedGamesByUser(userId).subscribe(allGames => {
       this.games = allGames.filter(game => game.status === 'completed');
     });
+  }
+
+  onGameUpdated(updatedGame: any) {
+  const index = this.games.findIndex(g => g.id === updatedGame.id);
+  if (index !== -1) {
+      this.games[index] = updatedGame;
+    }
   }
 }

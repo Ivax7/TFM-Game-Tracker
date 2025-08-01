@@ -3,10 +3,11 @@
   <div class="row g-3">
     <div *ngFor="let game of games" class="col-md-4">
       <div class="card h-100 shadow-sm">
-        <img [src]="game.gameImage" class="card-img-top" alt="{{ game.gameName }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ game.gameName }}</h5>
-        </div>
+        <app-game-card-body 
+          [game]="game" 
+          [isUserProfile]="true" 
+          (gameUpdated)="onGameUpdated($event)">
+        </app-game-card-body>
       </div>
     </div>
   </div>

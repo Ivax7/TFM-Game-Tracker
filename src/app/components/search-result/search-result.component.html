@@ -3,7 +3,7 @@
 
   <div *ngIf="games.length; else noResults" class="row g-4">
     <div *ngFor="let game of games" class="col-md-4">
-      <div class="card h-100 shadow-sm" (click)="goToDetail(game.id)" style="cursor: pointer;">
+      <div class="card h-100 shadow-sm">
         <app-game-card-body [game]="game"></app-game-card-body>
       </div>
     </div>

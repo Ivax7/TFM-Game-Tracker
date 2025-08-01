@@ -17,7 +17,6 @@ import { GameDetailComponent } from './components/game-detail/game-detail.compon
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { UserProfileComponent } from './components/authentication/user-profile/user-profile.component';
 import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
-import { PlayedComponent } from './components/authentication/user-profile/played/played.component';
 import { ListsComponent } from './components/authentication/user-profile/lists/lists.component';
 import { GameActionButtonsComponent } from './components/game-action-buttons/game-action-buttons.component';
 import { PlaytimeDisplayComponent } from './components/playtime-display/playtime-display.component';
@@ -39,7 +38,6 @@ import { PlayingComponent } from './components/authentication/user-profile/statu
     SearchResultComponent,
     UserProfileComponent,
     WishlistComponent,
-    PlayedComponent,
     ListsComponent,
     GameActionButtonsComponent,
     PlaytimeDisplayComponent,

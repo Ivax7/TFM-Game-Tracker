@@ -60,7 +60,7 @@ export class GameCardBodyComponent {
       status
     }
 
-    console.log('🎲 Juego completo:', this.game);
+    console.log('Juego completo:', this.game);
 
     this.userGameService.updateGameStatus(userId, payload).subscribe({
       next: () => {

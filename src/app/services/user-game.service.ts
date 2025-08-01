@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { switchMap } from "rxjs";
 import { UpdateUserGameDto } from "../models/update-user-game.dto";
+import { EnrichedGame } from "../models/enriched-game.model";
 
 @Injectable({ providedIn: 'root' })
 export class UserGameService {
@@ -19,40 +20,16 @@ export class UserGameService {
     });
   }
 
-  markAsPlayed(userId: number, game: any) {
-    return this.http.post(`${this.apiUrl}/played`, {
-      userId,
-      gameId: game.id,
-      gameName: game.name,
-      gameImage: game.background_image
-    });
-  }
-
   getWishlist(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/wishlist/${userId}`);
   }
 
-  getPlayed(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/played/${userId}`);
-  }
 
   removeFromWishlist(userId: number, gameId: number): Observable<any> {
   return this.http.delete(`${this.apiUrl}/wishlist/${userId}/${gameId}`);
   }
 
-  unmarkAsPlayed(userId: number, gameId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/played/${userId}/${gameId}`);
-  }
 
-  addGameToPlayedAndRemoveFromWishlist(userId: number, game: any): Observable<any> {
-    return this.markAsPlayed(userId, {
-      id: game.gameId,
-      name: game.gameName,
-      background_image: game.gameImage
-    }).pipe(
-      switchMap(() => this.removeFromWishlist(userId, game.gameId))
-    );
-  }
   updateGameStatus(userId: number, payload: UpdateUserGameDto): Observable<any> {
     return this.http.put(`${this.apiUrl}/user-game/${userId}/status`, payload);
   }
@@ -61,6 +38,16 @@ export class UserGameService {
   getGamesByUser(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/user-game/${userId}`);
   }
+
+  getEnrichedGamesByUser(userId: number): Observable<EnrichedGame[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user-game/enriched/${userId}`);
+  }
+
+  // getEnrichedWishlistByUser(userId: number): Observable<EnrichedGame[]> {
+  //   return this.http.get<EnrichedGame[]>(`${this.apiUrl}/wishlist/enriched/${userId}`);
+  // }
+
+
 
 }
 

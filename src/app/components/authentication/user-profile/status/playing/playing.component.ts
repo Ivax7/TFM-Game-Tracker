@@ -19,15 +19,19 @@ export class PlayingComponent implements OnInit {
     const userId = this.auth.getCurrentUser()?.id;
     if (!userId) return;
 
-this.userGameService.getGamesByUser(userId).subscribe(allGames => {
-  console.log('Todos los juegos recibidos:', allGames);
-
-  allGames.forEach(game => {
-    console.log(`Juego: ${game.gameName}, status:`, game.status);
-  });
-
-  this.games = allGames.filter(game => game.status === 'playing');
-});
+    this.userGameService.getEnrichedGamesByUser(userId).subscribe(allGames => {
+      console.log('Juegos playing enriched:', allGames);
+    
+      this.games = allGames.filter(game => game.status === 'playing');
+    });
 
   }
+
+  onGameUpdated(updatedGame: any) {
+  const index = this.games.findIndex(g => g.id === updatedGame.id);
+  if (index !== -1) {
+      this.games[index] = updatedGame;
+    }
+  }
+  
 }

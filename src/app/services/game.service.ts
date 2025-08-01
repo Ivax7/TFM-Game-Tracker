@@ -11,7 +11,7 @@ export class GameService {
   constructor(private http: HttpClient) {}
 
   // Main page
-getTopRatesGames(page: number = 1): Observable<any> {
+  getTopRatesGames(page: number = 1): Observable<any> {
   const todayDate = new Date();
   const today = todayDate.toISOString().split('T')[0];
   
@@ -29,7 +29,6 @@ getTopRatesGames(page: number = 1): Observable<any> {
     .set('page_size', '100')
     .set('metacritic', '0, 100')
     .set('dates', `${lastMonth},${nextMonth}`)
-
 
   return this.http.get(`${this.apiUrl}/games`, { params });
 }

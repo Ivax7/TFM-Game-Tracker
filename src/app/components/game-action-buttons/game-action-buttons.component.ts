@@ -19,8 +19,6 @@ export class GameActionButtonsComponent implements OnInit {
 
 
   isInWishlist = false;
-  isPlayed = false;
-
 
   constructor(
     private userGameService: UserGameService,
@@ -50,12 +48,6 @@ export class GameActionButtonsComponent implements OnInit {
       error: err => console.error('❌ Error cargando wishlist:', err)
     });
 
-    this.userGameService.getPlayed(userId).subscribe({
-      next: (played: any[]) => {
-        this.isPlayed = played.some(item => item.gameId === this.gameId);
-      },
-      error: err => console.error('❌ Error cargando played:', err)
-    });
   }
 
   toggleWishlist(event: Event): void {
@@ -80,74 +72,6 @@ export class GameActionButtonsComponent implements OnInit {
         error: err => console.error('❌ Error adding to wishlist:', err)
       });
     }
-  }
-
-  togglePlayed(event: Event): void {
-  event.stopPropagation();
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
-
-  if (this.isPlayed) {
-    this.userGameService.unmarkAsPlayed(userId, this.gameId).subscribe({
-      next: () => this.isPlayed = false,
-      error: err => console.error('❌ Error unmarking played:', err)
-    });
-  } else {
-    const gameToSend = {
-      id: this.gameId,
-      name: this.gameName,
-      background_image: this.gameImage
-    };
-
-    this.userGameService.markAsPlayed(userId, gameToSend).subscribe({
-      next: () => {
-        this.isPlayed = true;
-        this.isInWishlist = false;
-      },
-      error: err => console.log('❌ Error marking as played:', err)
-    });
-  }
-}
-
-
- // USER PROFILE ACTIONS
-
-markAsPlayed(game: any): void {
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
-
-    const formattedGame = {
-    gameId: game.gameId ?? game.id,
-    gameName: game.gameName ?? game.name,
-    gameImage: game.gameImage ?? game.background_image,
-  };
-
-  this.userGameService.addGameToPlayedAndRemoveFromWishlist(userId, formattedGame).subscribe({
-    next: () => {
-      this.isPlayed = true;
-      this.isInWishlist = false;
-      this.gameUpdated.emit(this.gameId);
-    },
-    error: err => console.error('❌ Error marcando como jugado:', err)
-  });
-}
-
-removeFromPlayed(game: any) {
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
-
-  this.userGameService.unmarkAsPlayed(userId, this.gameId).subscribe({
-    next: () => {
-      this.isPlayed = false;
-      this.gameUpdated.emit(this.gameId);
-    },
-    error: err => console.error('❌ Error removiendo de jugados:', err)
-  });
-}
-
-  openStatusModal(): void {
-    const modal = new bootstrap.Modal(this.statusModal.nativeElement);
-    modal.show();
   }
 
 }

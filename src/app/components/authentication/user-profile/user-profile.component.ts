@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent {
-  activeTab: 'wishlist' | 'played' | 'lists' | 'playing' | 'beaten' | 'completed' | 'abandoned' = 'wishlist';
+  activeTab: 'wishlist' | 'playing' | 'beaten' | 'completed' | 'abandoned' = 'wishlist';
   username: string = '';
 
   constructor(private auth: AuthService) {
