@@ -19,12 +19,15 @@ export class GameCardBodyComponent {
 
   @Input() game: any = {};
   @Input() isUserProfile: boolean = false;
+  @Input() showImage: boolean = true; // por defecto se muestra
   
   @Output() gameUpdated = new EventEmitter<number>();
   @Output() statusClick = new EventEmitter<any>();
 
   selectedStatus: string | null = null;
   modalInstance: any;
+
+
 
   constructor(
     private router: Router,
