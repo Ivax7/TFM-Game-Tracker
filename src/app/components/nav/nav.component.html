@@ -12,8 +12,8 @@
         <li class="nav-item" *ngIf="auth.isLoggedIn()">
           <a class="nav-link" style="cursor:pointer" (click)="logout()">Logout</a>
         </li>
-
       </ul>
+
       <span class="navbar-text me-3" *ngIf="auth.isLoggedIn()">
         Bienvenido, {{ auth.getCurrentUser()?.name || auth.getCurrentUser()?.email }}
       </span>
@@ -29,3 +29,4 @@
     </div>
   </div>
 </nav>
+
