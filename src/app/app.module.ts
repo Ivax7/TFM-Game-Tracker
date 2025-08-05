@@ -25,6 +25,7 @@ import { BeatenComponent } from './components/authentication/user-profile/status
 import { CompletedComponent } from './components/authentication/user-profile/status/completed/completed.component';
 import { AbandonedComponent } from './components/authentication/user-profile/status/abandoned/abandoned.component';
 import { PlayingComponent } from './components/authentication/user-profile/status/playing/playing.component';
+import { FiltersComponent } from './components/filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { PlayingComponent } from './components/authentication/user-profile/statu
     CompletedComponent,
     AbandonedComponent,
     PlayingComponent,
+    FiltersComponent,
   ],
   imports: [
     BrowserModule,

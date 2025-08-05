@@ -1,0 +1,43 @@
+<ul>
+  <li>
+    <label for="genres-select">Genres</label>
+    <select id="genres-select" [(ngModel)]="filters.genre" (change)="onChange()">
+      <option value="">---</option>
+      <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+    </select>
+  </li>
+
+  <li>
+    <label for="playtime-select">Playtime</label>
+    <select id="playtime-select" [(ngModel)]="filters.playtime" (change)="onChange()">
+      <option value="">---</option>
+      <option value="short">0–10h</option>
+      <option value="medium">10–30h</option>
+      <option value="long">30+h</option>
+    </select>
+  </li>
+
+  <li>
+    <label for="rating-select">⭐</label>
+    <select id="rating-select" [(ngModel)]="filters.rating" (change)="onChange()">
+      <option value="">---</option>
+      <option value="4">4+</option>
+      <option value="3">3+</option>
+      <option value="2">2+</option>
+    </select>
+  </li>
+
+  <li>
+    <label>Platforms</label>
+    <div *ngFor="let platform of platforms">
+      <input
+        type="checkbox"
+        [value]="platform"
+        [checked]="filters.platforms.includes(platform)"
+        (change)="togglePlatform(platform, $event)"
+      />
+      {{ platform }}
+    </div>
+  </li>
+
+</ul>

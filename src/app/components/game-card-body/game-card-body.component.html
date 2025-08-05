@@ -10,6 +10,13 @@
       {{ genre.name }}<span *ngIf="!isLast"> - </span>
       </span>
   </p>
+  
+  <p>
+    🎮 Platforms: 
+      <span *ngFor="let platform of game.platforms let isLast = last">
+      {{ platform.platform.name }}<span *ngIf="!isLast"> - </span>
+      </span>
+  </p>
 
   <!-- HOURS DETAILS -->
   <app-playtime-display 
