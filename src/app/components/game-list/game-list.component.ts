@@ -1,20 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
-
+import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.css']
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent implements OnInit, AfterViewInit {
+  @ViewChild('scrollAnchor', { static: false }) scrollAnchor!: ElementRef;
+
+
+
   games: any[] = [];
   filteredGames: any[] = [];
   genreOptions: string[] = [];
   platformOptions: string[] = [];
-  private maxGames = 20;
+  private currentPage = 1;
+  private loading = false;
+  private allGamesLoaded = false;
+  private pageSize = 20;
+  private observer!: IntersectionObserver;
 
   constructor(
     private gameService: GameService,
@@ -26,53 +34,73 @@ export class GameListComponent implements OnInit {
     this.loadGames();
   }
 
+  ngAfterViewInit(): void {
+      this.setupObserver()
+  }
+
   private loadGames(): void {
-  this.gameService.getTopRatesGames().subscribe({
-    next: (data) => {
-      const rawGames = data.results.slice(0, this.maxGames);
-      console.log(rawGames)
+    if(this.loading || this.allGamesLoaded) return;
+    this.loading = true;
 
-      this.games = rawGames.map((game: any) => ({
-        ...game,
-        loadingPlaytime: true,
-        playtimeMain: null
-      }));
-      
-      this.filteredGames = [...this.games];
+    this.gameService.getTopRatedGames(this.currentPage).subscribe({
+      next: (data) => {
+        const newGames = data.results.map((game: any) => ({
+          ...game,
+          loadingPlaytime: true,
+          playtimeMain: null
+        }))
+        if (newGames.length < this.pageSize) {
+          this.allGamesLoaded = true;
+        }
 
-      this.genreOptions = [
-        ...new Set(this.games.flatMap(game => game.genres?.map((g: any) => g.name) || []))
-      ];
+        this.games = [...this.games, ...newGames];
 
-      this.platformOptions = [
-        ...new Set(this.games.flatMap(game => game.platforms?.map((p: any) => p.platform.name) || []))
-      ]
-      
-      this.games.forEach((game, index) => {
-        console.log('🔍 Cargando duración para:', game.name, 'Slug:', game.slug);
-        this.gameService.getGameWithPlaytime(game.slug).subscribe({
-          next: (fullGameData) => {
-            const updatedGame = {
-              ...game,
-              ...fullGameData,
-              loadingPlaytime: false
+        this.applyFilters();
+
+        if(this.currentPage === 1) {
+          this.genreOptions = [
+            ...new Set(this.games.flatMap(game => game.genres?.map((g: any) => g.name) || []))
+          ]
+          
+          this.platformOptions = [
+            ...new Set(this.games.flatMap(game => game.platforms?.map((p: any) => p.platform.name) || []))
+          ]
+        }
+
+        newGames.forEach((game: any, indexOffset: number) => {
+          const globalIndex = this.games.length - newGames.length + indexOffset;
+
+          this.gameService.getGameWithPlaytime(game.slug).subscribe({
+            next: (fullGameData) => {
+              const updatedGame = {
+                ...game,
+                ...fullGameData,
+                loadingPlaytime: false
+              }
+
+              this.games[globalIndex] = updatedGame;
+              this.filteredGames[globalIndex] = updatedGame;
+            },
+            error: (err) => {
+              this.games[globalIndex].loadingPlaytime = false;
             }
-
-            this.games[index] = updatedGame;
-            this.filteredGames[index] = updatedGame;
-          },
-          error: (err) => {
-            console.error('Error cargando duración del juego:', err);
-            this.games[index].loadingPlaytime = false;
-          }
+          });
         });
-      });
-    },
-    error: (err) => console.error('Error al cargar juegos:', err)
-  });
-}
+        console.log(this.games)
+        this.currentPage++;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar juegos:', err);
+        this.loading = false;
+      }
+    });
+  }
 
-  onFiltersChanged(filters: any): void {
+  private currentFilters: any = {};
+
+  private applyFilters(): void {
+    const filters = this.currentFilters;
     this.filteredGames = this.games.filter(game => {
       const matchGenre = filters.genre
         ? game.genres?.some((g: any) => g.name === filters.genre)
@@ -81,7 +109,6 @@ export class GameListComponent implements OnInit {
       const matchPlatform = filters.platforms?.length
         ? game.platforms?.some((p: any) => filters.platforms.includes(p.platform.name))
         : true;
-
 
       const matchRating = filters.rating
         ? game.rating >= parseFloat(filters.rating)
@@ -93,6 +120,12 @@ export class GameListComponent implements OnInit {
 
       return matchGenre && matchPlatform && matchRating && matchPlaytime;
     });
+    
+  }
+
+  onFiltersChanged(filters: any): void {
+    this.currentFilters = filters;
+    this.applyFilters();
   }
 
   private checkPlaytimeRange(playtime: number, range: string): boolean {
@@ -101,6 +134,18 @@ export class GameListComponent implements OnInit {
       case 'medium': return playtime > 10 && playtime <= 30;
       case 'long': return playtime > 30;
       default: return true;
+    }
+  }
+
+  private setupObserver(): void {
+    this.observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        this.loadGames();
+      }
+    });
+
+    if (this.scrollAnchor) {
+      this.observer.observe(this.scrollAnchor.nativeElement);
     }
   }
 

@@ -43,11 +43,5 @@ export class UserGameService {
     return this.http.get<any[]>(`${this.apiUrl}/user-game/enriched/${userId}`);
   }
 
-  // getEnrichedWishlistByUser(userId: number): Observable<EnrichedGame[]> {
-  //   return this.http.get<EnrichedGame[]>(`${this.apiUrl}/wishlist/enriched/${userId}`);
-  // }
-
-
-
 }
 
