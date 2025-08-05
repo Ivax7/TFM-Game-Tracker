@@ -2,8 +2,10 @@
 
 <div class="card-body">
   <h5 class="card-title" (click)="goToDetail(game.id)" style="cursor: pointer;">{{ game.name }}</h5>
+  <p class="card-text">⌚ {{ game.released }}</p>
+
   <p class="card-text">⭐ {{ game.rating }}</p>
-  
+
   <p>
     🎮 Genres: 
       <span *ngFor="let genre of game.genres; let isLast = last">

@@ -25,14 +25,17 @@ export class GameService {
 
   const params = new HttpParams()
     .set('key', this.apiKey)
-    .set('ordering', 'recent')
+    // .set('ordering', '-recent')
     .set('page_size', '100')
-    .set('metacritic', '0, 100')
     .set('dates', `${lastMonth},${nextMonth}`)
+    .set('rating_count', '50')
     .set('page', page.toString());
 
-    return this.http.get(`${this.apiUrl}/games`, { params });  
-  }
+    
+  const updatedParams = params.set('page', page.toString());
+
+  return this.http.get(`${this.apiUrl}/games`, { params: updatedParams  });
+}
 
   // Search Bar
   searchGames(query: string, page: number = 1): Observable<any> {

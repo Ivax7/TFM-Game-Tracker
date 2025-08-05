@@ -44,7 +44,8 @@ export class GameListComponent implements OnInit, AfterViewInit {
 
     this.gameService.getTopRatedGames(this.currentPage).subscribe({
       next: (data) => {
-        const newGames = data.results.map((game: any) => ({
+        const newGames = data.results
+        .map((game: any) => ({
           ...game,
           loadingPlaytime: true,
           playtimeMain: null
