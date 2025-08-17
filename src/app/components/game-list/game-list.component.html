@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h2 class="mb-4">Top Rated Games</h2>
+  <h2 class="mb-4">10 Trending Games</h2>
   <app-filters
     [genres]="genreOptions"
     [platforms]="platformOptions"
@@ -9,13 +9,19 @@
 
   <div *ngIf="games.length > 0; else loading">
     <div class="row g-4">
-      <div *ngFor="let game of filteredGames" class="col-md-6 col-lg-4">
+      <div *ngFor="let game of filteredGames" class="col-5th">
         <div class="card h-100 shadow-sm">
 
           <app-game-card-body
             [game]="game"
           ></app-game-card-body>
         </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <button class="btn btn-primary" (click)="goToAllTrending()">
+          Ver los 100 juegos
+        </button>
       </div>  
     </div>
   </div>

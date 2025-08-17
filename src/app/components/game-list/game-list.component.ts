@@ -42,8 +42,8 @@ export class GameListComponent implements OnInit, AfterViewInit {
     if(this.loading || this.allGamesLoaded) return;
     this.loading = true;
 
-    this.gameService.getTopRatedGames(this.currentPage).subscribe({
-      next: (data) => {
+    this.gameService.get10TrendingGames(this.currentPage).subscribe({
+      next: (data: any) => {
         const newGames = data.results
         .map((game: any) => ({
           ...game,
@@ -82,7 +82,7 @@ export class GameListComponent implements OnInit, AfterViewInit {
               this.games[globalIndex] = updatedGame;
               this.filteredGames[globalIndex] = updatedGame;
             },
-            error: (err) => {
+            error: (err: any) => {
               this.games[globalIndex].loadingPlaytime = false;
             }
           });
@@ -91,7 +91,7 @@ export class GameListComponent implements OnInit, AfterViewInit {
         this.currentPage++;
         this.loading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error al cargar juegos:', err);
         this.loading = false;
       }
@@ -149,6 +149,12 @@ export class GameListComponent implements OnInit, AfterViewInit {
       this.observer.observe(this.scrollAnchor.nativeElement);
     }
   }
+
+  goToAllTrending(): void {
+    this.router.navigate(['/trending']);
+  }
+
+
 
 }
 

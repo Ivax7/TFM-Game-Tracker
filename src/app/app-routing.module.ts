@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/authentication/register/register
 import { GameDetailComponent } from './components/game-detail/game-detail.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { UserProfileComponent } from './components/authentication/user-profile/user-profile.component';
+import { TrendingPageComponent } from './components/trending-page/trending-page.component';
 
 const routes: Routes = [
   { 
@@ -38,6 +39,10 @@ const routes: Routes = [
     path: 'profile',
     component: UserProfileComponent
   },
+  { 
+    path: 'trending', 
+    component: TrendingPageComponent 
+  }
   // { 
   //   path: '**', 
   //   component: GameListComponent

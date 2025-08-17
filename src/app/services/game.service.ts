@@ -11,31 +11,41 @@ export class GameService {
   constructor(private http: HttpClient) {}
 
   // Main page
-  getTopRatedGames(page: number = 1): Observable<any> {
-  const todayDate = new Date();
-  const today = todayDate.toISOString().split('T')[0];
-  
-  const lastMonthDate = new Date(todayDate);
-  lastMonthDate.setMonth(lastMonthDate.getMonth() - 2);
-  const lastMonth = lastMonthDate.toISOString().split('T')[0];
+  get10TrendingGames(page: number = 1): Observable<any> {
+    const today = new Date().toISOString().split('T')[0];
 
-  const nextMonthDate = new Date(todayDate);
-  lastMonthDate.setMonth(nextMonthDate.getMonth() + 2);
-  const nextMonth = nextMonthDate.toISOString().split('T')[0];
+    const lastMonthDate = new Date();
+    lastMonthDate.setMonth(lastMonthDate.getMonth() - 2);
+    const lastMonth = lastMonthDate.toISOString().split('T')[0];
 
-  const params = new HttpParams()
-    .set('key', this.apiKey)
-    // .set('ordering', '-recent')
-    .set('page_size', '100')
-    .set('dates', `${lastMonth},${nextMonth}`)
-    .set('rating_count', '50')
-    .set('page', page.toString());
+    const params = new HttpParams()
+      .set('key', this.apiKey)
+      .set('dates', `${lastMonth},${today}`)
+      .set('ordering', '-added')
+      .set('page_size', '10')
+      .set('page', page.toString());
 
-    
-  const updatedParams = params.set('page', page.toString());
+    return this.http.get(`${this.apiUrl}/games`, { params });
+  }
 
-  return this.http.get(`${this.apiUrl}/games`, { params: updatedParams  });
-}
+  // Trading page
+  getFullTrendingGames(page: number = 1): Observable<any> {
+    const today = new Date().toISOString().split('T')[0];
+
+    const lastMonthDate = new Date();
+    lastMonthDate.setMonth(lastMonthDate.getMonth() - 2);
+    const lastMonth = lastMonthDate.toISOString().split('T')[0];
+
+    const params = new HttpParams()
+      .set('key', this.apiKey)
+      .set('dates', `${lastMonth},${today}`)
+      .set('ordering', '-added')
+      .set('page_size', '100')
+      .set('page', page.toString());
+
+    return this.http.get(`${this.apiUrl}/games`, { params });
+  }
+
 
   // Search Bar
   searchGames(query: string, page: number = 1): Observable<any> {
