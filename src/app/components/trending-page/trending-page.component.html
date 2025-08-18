@@ -1,7 +1,13 @@
 <div class="container mt-4">
   <h2 class="mb-4">Top 100 Trending Games</h2>
 
-  <div *ngIf="!loading; else loadingTpl">
+  <app-filters
+    [genres]="genreOptions"
+    [platforms]="platformOptions"
+    (filtersChanged)="onFiltersChanged($event)"
+  ></app-filters>
+
+  <div *ngIf="filteredGames.length > 0; else loadingTpl">
     <div class="row g-4">
       <div *ngFor="let game of filteredGames" class="col-md-6 col-lg-4">
         <div class="card h-100 shadow-sm">
@@ -9,6 +15,7 @@
         </div>
       </div>
     </div>
+    <div #scrollAnchor style="height: 100px;"></div>
   </div>
 
   <ng-template #loadingTpl>

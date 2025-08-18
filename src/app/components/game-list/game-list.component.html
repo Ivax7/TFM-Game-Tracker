@@ -1,15 +1,9 @@
 <div class="container mt-4">
   <h2 class="mb-4">10 Trending Games</h2>
-  <app-filters
-    [genres]="genreOptions"
-    [platforms]="platformOptions"
-    (filtersChanged)="onFiltersChanged($event)"
-  >
-  </app-filters>
 
   <div *ngIf="games.length > 0; else loading">
     <div class="row g-4">
-      <div *ngFor="let game of filteredGames" class="col-5th">
+      <div *ngFor="let game of games" class="col-5th">
         <div class="card h-100 shadow-sm">
 
           <app-game-card-body
