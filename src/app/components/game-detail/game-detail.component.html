@@ -14,6 +14,7 @@
 
   <div class="game-info container mt-4">
     <app-game-card-body [game]="game" [showImage]="false"></app-game-card-body>
-    <!-- <p>{{ game. }}</p> -->
+
+    <app-review [gameId]="game.id"></app-review>
   </div>
 </div>

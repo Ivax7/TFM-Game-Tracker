@@ -1,0 +1,28 @@
+<div class="mt-3">
+  <h6>📝 Reseñas</h6>
+
+  <!-- Campo para escribir nueva reseña -->
+  <div *ngIf="auth.isLoggedIn(); else loginReminder">
+    <textarea [(ngModel)]="newReview" rows="2" class="form-control mb-2" placeholder="Escribe tu reseña..."></textarea>
+    <button class="btn btn-sm btn-primary" (click)="addReview()">Publicar</button>
+  </div>
+  
+  <ng-template #loginReminder>
+    <p class="text-muted fst-italic">🔒 Debes iniciar sesión para escribir una reseña.</p>
+    <button class="btn btn-sm btn-outline-primary" (click)="goToLogin()">Iniciar sesión</button>
+  </ng-template>
+
+  <!-- Listado de reseñas -->
+  <div *ngIf="reviews.length > 0; else noReviews" class="mt-3">
+    <div *ngFor="let review of reviews" class="border rounded p-2 mb-2">
+      <strong>{{ review.userName }}</strong> dijo:
+      <p class="mb-0">{{ review.text }}</p>
+    </div>
+  </div>
+
+  <ng-template #noReviews>
+    <p class="text-muted">No hay reseñas todavía. Sé el primero en opinar 👀</p>
+  </ng-template>
+
+
+</div>

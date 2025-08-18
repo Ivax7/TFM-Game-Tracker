@@ -27,6 +27,7 @@ import { AbandonedComponent } from './components/authentication/user-profile/sta
 import { PlayingComponent } from './components/authentication/user-profile/status/playing/playing.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { TrendingPageComponent } from './components/trending-page/trending-page.component';
+import { ReviewComponent } from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { TrendingPageComponent } from './components/trending-page/trending-page.
     PlayingComponent,
     FiltersComponent,
     TrendingPageComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,

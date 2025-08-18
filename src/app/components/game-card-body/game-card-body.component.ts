@@ -1,12 +1,10 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { EventEmitter, Output } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../authentication/auth.service';
 import { UserGameService } from '../../services/user-game.service';
+import { ReviewService } from '../../services/review.service';
 
 declare var bootstrap: any;
-
-
 
 @Component({
   selector: 'app-game-card-body',
@@ -16,10 +14,9 @@ declare var bootstrap: any;
 export class GameCardBodyComponent {
   @ViewChild('statusModal') statusModal!: ElementRef;
 
-
   @Input() game: any = {};
   @Input() isUserProfile: boolean = false;
-  @Input() showImage: boolean = true; // por defecto se muestra
+  @Input() showImage: boolean = true;
   
   @Output() gameUpdated = new EventEmitter<number>();
   @Output() statusClick = new EventEmitter<any>();
@@ -27,25 +24,29 @@ export class GameCardBodyComponent {
   selectedStatus: string | null = null;
   modalInstance: any;
 
-
+  // RESEÑAS
+  reviews: { userName: string, text: string }[] = [];
+  newReview: string = '';
 
   constructor(
     private router: Router,
     private userGameService: UserGameService,
-    private auth: AuthService
+    private reviewService: ReviewService,
+    public auth: AuthService
   ) {}
 
+
+  // GAME STATUS
   onGameUpdated(id: number) {
     this.gameUpdated.emit(id);
   }
-  
+
   goToDetail(gameId: number): void {
     this.router.navigate(['/game', gameId]);
   }
 
   openStatusModal(): void {
     this.selectedStatus = this.game.status || null;
-    console.log(this.selectedStatus)
     const modalEl = this.statusModal.nativeElement;
     this.modalInstance = new bootstrap.Modal(modalEl);
     this.modalInstance.show();
@@ -53,7 +54,6 @@ export class GameCardBodyComponent {
 
   setStatus(status: 'playing' | 'beaten' | 'completed' | 'abandoned'): void {
     const userId = this.auth.getCurrentUser()?.id;
-
     if(!userId) return;
 
     const payload = {
@@ -63,20 +63,49 @@ export class GameCardBodyComponent {
       status
     }
 
-    console.log('Juego completo:', this.game);
-
     this.userGameService.updateGameStatus(userId, payload).subscribe({
       next: () => {
         this.selectedStatus = status;
-
-        this.game.status = status
+        this.game.status = status;
         this.modalInstance?.hide();
         console.log('✅ Estado guardado correctamente:', status);
-
       },
       error: err => console.log('❌ Error al guardar el estado:', err)
     });
   }
 
+  // REVIEWS
+  // loadReviews(): void {
+  //   if (!this.game.id) return;
 
+  //   this.reviewService.getReviews(this.game.id).subscribe({
+  //     next: data => {
+  //       this.reviews = data.map(r => ({ userName: r.userName, text: r.text }));
+  //     },
+  //     error: err => console.error('❌ Error cargando reseñas:', err)
+  //   });
+  // }
+
+  // addReview(): void {
+  //   const user = this.auth.getCurrentUser();
+  //   if (!user || !this.newReview.trim()) return;
+
+  //   const reviewPayload = {
+  //     userId: user.id,
+  //     userName: user.name || 'Anónimo',
+  //     text: this.newReview.trim()
+  //   };
+
+  //   this.reviewService.addReview(this.game.id, reviewPayload).subscribe({
+  //     next: savedReview => {
+  //       this.reviews.unshift({ userName: savedReview.userName, text: savedReview.text });
+  //       this.newReview = '';
+  //     },
+  //     error: err => console.log('❌ Error al agregar reseña:', err)
+  //   });
+  // }
+
+  // goToLogin(): void {
+  //   this.router.navigate(['/login']);
+  // }
 }
