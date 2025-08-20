@@ -17,6 +17,7 @@ export class GameCardBodyComponent {
   @Input() game: any = {};
   @Input() isUserProfile: boolean = false;
   @Input() showImage: boolean = true;
+  @Input() showDescription: boolean = false;
   
   @Output() gameUpdated = new EventEmitter<number>();
   @Output() statusClick = new EventEmitter<any>();
@@ -74,38 +75,4 @@ export class GameCardBodyComponent {
     });
   }
 
-  // REVIEWS
-  // loadReviews(): void {
-  //   if (!this.game.id) return;
-
-  //   this.reviewService.getReviews(this.game.id).subscribe({
-  //     next: data => {
-  //       this.reviews = data.map(r => ({ userName: r.userName, text: r.text }));
-  //     },
-  //     error: err => console.error('❌ Error cargando reseñas:', err)
-  //   });
-  // }
-
-  // addReview(): void {
-  //   const user = this.auth.getCurrentUser();
-  //   if (!user || !this.newReview.trim()) return;
-
-  //   const reviewPayload = {
-  //     userId: user.id,
-  //     userName: user.name || 'Anónimo',
-  //     text: this.newReview.trim()
-  //   };
-
-  //   this.reviewService.addReview(this.game.id, reviewPayload).subscribe({
-  //     next: savedReview => {
-  //       this.reviews.unshift({ userName: savedReview.userName, text: savedReview.text });
-  //       this.newReview = '';
-  //     },
-  //     error: err => console.log('❌ Error al agregar reseña:', err)
-  //   });
-  // }
-
-  // goToLogin(): void {
-  //   this.router.navigate(['/login']);
-  // }
 }

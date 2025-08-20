@@ -4,6 +4,8 @@
   <h5 class="card-title" (click)="goToDetail(game.id)" style="cursor: pointer;">{{ game.name }}</h5>
   <p class="card-text">⌚ {{ game.released }}</p>
 
+  <div class="card-description" *ngIf="showDescription" [innerHTML]="game.description"></div>
+
   <p class="card-text">⭐ {{ game.rating }}</p>
   
   <p>
