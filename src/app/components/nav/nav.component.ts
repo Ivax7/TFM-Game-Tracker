@@ -14,4 +14,8 @@ export class NavComponent {
     this.auth.logout();
     this.router.navigate(['/']);
   }
+
+  openProfileModal(): void {
+
+  }
 }

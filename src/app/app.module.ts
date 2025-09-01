@@ -28,6 +28,7 @@ import { PlayingComponent } from './components/authentication/user-profile/statu
 import { FiltersComponent } from './components/filters/filters.component';
 import { TrendingPageComponent } from './components/trending-page/trending-page.component';
 import { ReviewComponent } from './components/review/review.component';
+import { UserStatsComponent } from './components/authentication/user-profile/user-stats/user-stats.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ReviewComponent } from './components/review/review.component';
     FiltersComponent,
     TrendingPageComponent,
     ReviewComponent,
+    UserStatsComponent,
   ],
   imports: [
     BrowserModule,

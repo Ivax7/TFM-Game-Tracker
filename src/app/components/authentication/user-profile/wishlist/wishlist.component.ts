@@ -12,7 +12,6 @@ import { GameService } from '../../../../services/game.service';
 export class WishlistComponent implements OnInit {
   wishlist: any[] = [];
 
-
   constructor(
     private userGameService: UserGameService,
     private auth: AuthService,

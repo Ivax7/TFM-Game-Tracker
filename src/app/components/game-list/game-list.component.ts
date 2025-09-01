@@ -2,7 +2,6 @@ import { Component, OnInit, viewChild } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
-import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-game-list',

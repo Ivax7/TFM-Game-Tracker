@@ -7,6 +7,7 @@ import { GameDetailComponent } from './components/game-detail/game-detail.compon
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { UserProfileComponent } from './components/authentication/user-profile/user-profile.component';
 import { TrendingPageComponent } from './components/trending-page/trending-page.component';
+import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
 
 const routes: Routes = [
   { 
@@ -21,6 +22,10 @@ const routes: Routes = [
   { 
     path: 'register', 
     component: RegisterComponent 
+  },
+  { 
+    path: 'trending', 
+    component: TrendingPageComponent 
   },
   { 
     path: 'games', 
@@ -40,9 +45,22 @@ const routes: Routes = [
     component: UserProfileComponent
   },
   { 
-    path: 'trending', 
-    component: TrendingPageComponent 
-  }
+    path: 'wishlist',
+    component: WishlistComponent
+  },
+  { 
+    path: 'collection',
+    component: WishlistComponent
+  },
+  { 
+    path: 'lists',
+    component: WishlistComponent
+  },
+  { 
+    path: 'Settings',
+    component: WishlistComponent
+  },
+
   // { 
   //   path: '**', 
   //   component: GameListComponent
