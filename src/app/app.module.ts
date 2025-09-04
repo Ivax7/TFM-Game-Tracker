@@ -29,6 +29,8 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { TrendingPageComponent } from './components/trending-page/trending-page.component';
 import { ReviewComponent } from './components/review/review.component';
 import { UserStatsComponent } from './components/authentication/user-profile/user-stats/user-stats.component';
+import { RatingsComponent } from './components/authentication/user-profile/profile/ratings/ratings.component';
+import { ReviewsComponent } from './components/authentication/user-profile/profile/reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { UserStatsComponent } from './components/authentication/user-profile/use
     TrendingPageComponent,
     ReviewComponent,
     UserStatsComponent,
+    RatingsComponent,
+    ReviewsComponent,
   ],
   imports: [
     BrowserModule,

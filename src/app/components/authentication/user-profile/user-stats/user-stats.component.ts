@@ -36,8 +36,6 @@ export class UserStatsComponent implements OnInit{
       error: (err) => console.error('Error cargando juegos:', err)
     });
 
-
-
   }
 
 

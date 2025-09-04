@@ -9,22 +9,36 @@
 
   <div class="d-flex justify-content-center mb-4">
 
-    <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'wishlist', 'btn-outline-primary': activeTab !== 'wishlist' }" (click)="activeTab = 'wishlist'">Wishlist</button>
+    <!-- <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'wishlist', 'btn-outline-primary': activeTab !== 'wishlist' }" (click)="activeTab = 'wishlist'">Wishlist</button> -->
     <!-- STATUS BUTTONS -->
-    <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'playing', 'btn-outline-primary': activeTab !== 'playing' }" (click)="activeTab = 'playing'">Playing</button>
-    <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'beaten', 'btn-outline-primary': activeTab !== 'beaten' }" (click)="activeTab = 'beaten'">Beaten</button>
-    <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'completed', 'btn-outline-primary': activeTab !== 'completed' }" (click)="activeTab = 'completed'">Completed 100%</button>
-    <button class="btn" [ngClass]="{ 'btn-primary': activeTab === 'abandoned', 'btn-outline-primary': activeTab !== 'abandoned' }" (click)="activeTab = 'abandoned'">Abandoned</button>
+    <!-- <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'playing', 'btn-outline-primary': activeTab !== 'playing' }" (click)="activeTab = 'playing'">Playing</button> -->
+    <!-- <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'beaten', 'btn-outline-primary': activeTab !== 'beaten' }" (click)="activeTab = 'beaten'">Beaten</button> -->
+    <!-- <button class="btn me-2" [ngClass]="{ 'btn-primary': activeTab === 'completed', 'btn-outline-primary': activeTab !== 'completed' }" (click)="activeTab = 'completed'">Completed 100%</button> -->
+    <!-- <button class="btn" [ngClass]="{ 'btn-primary': activeTab === 'abandoned', 'btn-outline-primary': activeTab !== 'abandoned' }" (click)="activeTab = 'abandoned'">Abandoned</button> -->
 
+
+  <!-- ACTIVE INFO BUTTON -->
+  <button class="btn me-2" 
+      [ngClass]="{ 'btn-primary': activeInfo === 'ratings', 'btn-outline-primary': activeInfo !== 'ratings' }" 
+      (click)="activeInfo = 'ratings'">Ratings</button>
+  <button class="btn" 
+      [ngClass]="{ 'btn-primary': activeInfo === 'reviews', 'btn-outline-primary': activeInfo !== 'reviews' }" 
+      (click)="activeInfo = 'reviews'">Reviews</button>
   </div>
 
-  <div [ngSwitch]="activeTab">
+    <!-- ACTIVE INFO CONTENT -->
+  <div [ngSwitch]="activeInfo">
+    <app-ratings *ngSwitchCase="'ratings'"></app-ratings>
+    <app-reviews *ngSwitchCase="'reviews'"></app-reviews>
+  </div>
+
+  <!-- <div [ngSwitch]="activeTab">
     <app-wishlist *ngSwitchCase="'wishlist'"></app-wishlist>
     <app-playing *ngSwitchCase="'playing'"></app-playing>
     <app-beaten *ngSwitchCase="'beaten'"></app-beaten>
     <app-completed *ngSwitchCase="'completed'"></app-completed>
     <app-abandoned *ngSwitchCase="'abandoned'"></app-abandoned>
-  </div>
+  </div> -->
 </div>
 
 
