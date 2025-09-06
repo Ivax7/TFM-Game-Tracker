@@ -31,6 +31,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { UserStatsComponent } from './components/authentication/user-profile/user-stats/user-stats.component';
 import { RatingsComponent } from './components/authentication/user-profile/profile/ratings/ratings.component';
 import { ReviewsComponent } from './components/authentication/user-profile/profile/reviews/reviews.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ReviewsComponent } from './components/authentication/user-profile/profi
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

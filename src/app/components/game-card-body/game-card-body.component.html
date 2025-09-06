@@ -21,6 +21,22 @@
       {{ platform.platform.name }}<span *ngIf="!isLast"> - </span>
       </span>
   </p>
+  
+  <!-- RATING POR ESTRELLAS -->
+  <div class="user-rating">
+    <h6>Tu valoración:</h6>
+    <span *ngFor="let star of [1,2,3,4,5]" 
+          (click)="setUserRating(game.id, star)"
+          style="cursor: pointer; font-size: 1.5rem;"
+          [ngClass]="{
+            'text-warning': star <= userRatings[game.id],
+            'text-secondary': star > userRatings[game.id]
+          }">
+      ★
+    </span>
+  </div>
+
+
 
 
 
@@ -101,6 +117,9 @@
 
           <img [src]="game.background_image" class="card-img-top">
         </div>
+
+
+
       </div>
     </div>
   </div>

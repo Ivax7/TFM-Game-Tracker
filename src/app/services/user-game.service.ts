@@ -43,5 +43,11 @@ export class UserGameService {
     return this.http.get<any[]>(`${this.apiUrl}/user-game/enriched/${userId}`);
   }
 
+
+  updateRating(userId: number, gameId: number, rating: number) {
+    return this.http.patch(`${this.apiUrl}/user-game/${userId}/rating`, { gameId, rating });
+  }
+
+
 }
 
