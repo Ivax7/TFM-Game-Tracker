@@ -15,6 +15,9 @@ export class GameCardBodyComponent implements OnInit {
 
   @ViewChild('statusModal') statusModal!: ElementRef;
 
+  @ViewChild('ratingModal') ratingModal!: ElementRef;
+  ratingModalInstance: any;
+
   @Input() game: any = {};
   @Input() isUserProfile: boolean = false;
   @Input() showImage: boolean = true;
@@ -70,12 +73,27 @@ export class GameCardBodyComponent implements OnInit {
     this.router.navigate(['/game', gameId]);
   }
 
+  // Open Status modal
   openStatusModal(): void {
     this.selectedStatus = this.game.status || null;
     const modalEl = this.statusModal.nativeElement;
     this.modalInstance = new bootstrap.Modal(modalEl);
     this.modalInstance.show();
   }
+
+  // RATING & HOURS MODAL
+
+  openRatingModal(): void {
+    const modalEl = this.ratingModal.nativeElement;
+    this.ratingModalInstance = new bootstrap.Modal(modalEl);
+    this.ratingModalInstance.show();
+  }
+
+  closeRatingModal(): void {
+    this.ratingModalInstance?.hide();
+  }
+
+  // Setear Status
 
   setStatus(status: 'playing' | 'beaten' | 'completed' | 'abandoned'): void {
     const userId = this.auth.getCurrentUser()?.id;
@@ -93,10 +111,37 @@ export class GameCardBodyComponent implements OnInit {
         this.selectedStatus = status;
         this.game.status = status;
         this.modalInstance?.hide();
+        this.openRatingModal();
         console.log('✅ Estado guardado correctamente:', status);
       },
       error: err => console.log('❌ Error al guardar el estado:', err)
     });
+  }
+
+  clearStatus(): void {
+
+    const userId = this.auth.getCurrentUser()?.id;
+    if(!userId) return;
+
+    const payload = {
+      gameId: this.game.id,
+      gameName: this.game.name,
+      gameImage: this.game.background_image,
+      status: null,
+      rating: null,
+    }
+
+    this.userGameService.updateGameStatus(userId, payload).subscribe({
+      next: () => {
+        this.selectedStatus = null;
+        this.game.status = null;
+        this.userRatings[this.game.id] = 0;
+        this.game.rating = null;
+        this.modalInstance?.hide();
+        console.log('🗑️ Estado eliminado correctamente')
+      },
+      error: err => console.error('❌ Error al limpiar estado', err)
+    })
   }
 
 
@@ -112,8 +157,8 @@ export class GameCardBodyComponent implements OnInit {
 
 
   setUserRating(gameId: number, rating: number): void {
-    this.userRatings[gameId] = rating; // actualiza localmente
-    this.saveRating(gameId, rating);   // guarda en el backend
+    this.userRatings[gameId] = rating;
+    this.saveRating(gameId, rating);
   }
 
 

@@ -22,23 +22,6 @@
       </span>
   </p>
   
-  <!-- RATING POR ESTRELLAS -->
-  <div class="user-rating">
-    <h6>Tu valoración:</h6>
-    <span *ngFor="let star of [1,2,3,4,5]" 
-          (click)="setUserRating(game.id, star)"
-          style="cursor: pointer; font-size: 1.5rem;"
-          [ngClass]="{
-            'text-warning': star <= userRatings[game.id],
-            'text-secondary': star > userRatings[game.id]
-          }">
-      ★
-    </span>
-  </div>
-
-
-
-
 
   <!-- HOURS DETAILS -->
   <app-playtime-display 
@@ -112,14 +95,44 @@
                 🚫 Abandoned
               </button>
             </li>
+
+            <!-- Clear button -->
+            <li>
+              <button type="button" class="btn btn-outline-secondary"
+                      (click)="clearStatus()">
+                ♻️ Clear Status
+              </button>
+            </li>
+
           </ul>
 
 
           <img [src]="game.background_image" class="card-img-top">
         </div>
+      </div>
+    </div>
+  </div>
 
-
-
+  <!-- Rating Modal -->
+  <div #ratingModal class="modal fade" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ratingModalLabel">Rate this Game</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <h6>⭐ Tu valoración:</h6>
+          <span *ngFor="let star of [1,2,3,4,5]" 
+                (click)="setUserRating(game.id, star); closeRatingModal()"
+                style="cursor: pointer; font-size: 2rem;"
+                [ngClass]="{
+                  'text-warning': star <= userRatings[game.id],
+                  'text-secondary': star > userRatings[game.id]
+                }">
+            ★
+          </span>
+        </div>
       </div>
     </div>
   </div>
