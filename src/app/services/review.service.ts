@@ -9,10 +9,17 @@ export class ReviewService {
   constructor(private http: HttpClient) {}
 
   getReviews(gameId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/games/${gameId}/reviews`);
+    return this.http.get<any[]>(`${this.apiUrl}/reviews/game/${gameId}`);
   }
 
   addReview(gameId: number, review: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/games/${gameId}/reviews`, review);
+    return this.http.post<any>(`${this.apiUrl}/reviews/game/${gameId}`, review);
   }
+
+  getReviewsByUser(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/reviews/user/${userId}`);
+  }
+
+
+
 }

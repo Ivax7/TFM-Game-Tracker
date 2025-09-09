@@ -1,1 +1,19 @@
-<p>reviews works!</p>
+<div style="max-width: 800px; margin: auto;">
+  <div *ngIf="userReviews.length === 0" class="text-center text-muted">
+    No has escrito ninguna review aún.
+  </div>
+
+  <div class="row row-cols-2 g-4">
+    <div class="col" *ngFor="let review of userReviews">
+      <div class="card h-100 shadow-sm">
+        <img *ngIf="review.game?.gameImage" [src]="review.game.gameImage" class="card-img-top" alt="Game image" />
+        <div class="card-body">
+          <h5 class="card-title">{{ review.game?.gameName }}</h5>
+          <p class="text-muted mb-1">{{ review.createdAt | date:'mediumDate' }}</p>
+          <p class="text-muted mb-1">{{ review.userName  }}</p>
+          <p class="card-text">{{ review.text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
