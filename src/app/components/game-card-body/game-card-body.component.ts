@@ -33,6 +33,8 @@ export class GameCardBodyComponent implements OnInit {
   @Input() userGames: any[] = [];
   userRatings: { [gameId: number]: number } = {};
 
+  // HOURS
+  userHours: { [gameId: number]: number } = {};
 
   // RESEÑAS
   reviews: { userName: string, text: string }[] = [];
@@ -137,13 +139,11 @@ export class GameCardBodyComponent implements OnInit {
         this.game.status = null;
         this.userRatings[this.game.id] = 0;
         this.game.rating = null;
-        this.modalInstance?.hide();
         console.log('🗑️ Estado eliminado correctamente')
       },
       error: err => console.error('❌ Error al limpiar estado', err)
     })
   }
-
 
   saveRating(gameId: number, rating: number): void {
     const userId = this.auth.getCurrentUser()?.id;
@@ -155,12 +155,22 @@ export class GameCardBodyComponent implements OnInit {
     });
   }
 
-
   setUserRating(gameId: number, rating: number): void {
     this.userRatings[gameId] = rating;
     this.saveRating(gameId, rating);
   }
 
+  saveHoursPlayed(gameId: number): void {
+  const userId = this.auth.getCurrentUser()?.id;
+  if (!userId) return;
+
+  const hours = this.userHours[gameId] || 0;
+
+  this.userGameService.updateHoursPlayed(userId, gameId, hours).subscribe({
+      next: () => console.log(`✅ Horas jugadas (${hours}) guardadas para juego ${gameId}`),
+      error: err => console.error('❌ Error guardando horas jugadas', err)
+    });
+  }
 
 
 

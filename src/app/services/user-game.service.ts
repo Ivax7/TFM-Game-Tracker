@@ -48,6 +48,11 @@ export class UserGameService {
     return this.http.patch(`${this.apiUrl}/user-game/${userId}/rating`, { gameId, rating });
   }
 
+  updateHoursPlayed(userId: number, gameId: number, hoursPlayed: number) {
+    return this.http.patch(`${this.apiUrl}/user-game/${userId}/hours`, { gameId, hoursPlayed });
+  }
+
+
 
 }
 

@@ -113,7 +113,7 @@
     </div>
   </div>
 
-  <!-- Rating Modal -->
+  <!-- Rating & Duration MODAL -->
   <div #ratingModal class="modal fade" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -124,7 +124,7 @@
         <div class="modal-body text-center">
           <h6>⭐ Tu valoración:</h6>
           <span *ngFor="let star of [1,2,3,4,5]" 
-                (click)="setUserRating(game.id, star); closeRatingModal()"
+                (click)="setUserRating(game.id, star);"
                 style="cursor: pointer; font-size: 2rem;"
                 [ngClass]="{
                   'text-warning': star <= userRatings[game.id],
@@ -133,6 +133,22 @@
             ★
           </span>
         </div>
+
+        
+        <div>
+          <label for="hours-played">Duration (hours)</label>
+          <input id="hours-played" type="number" min="0"
+            [(ngModel)]="userHours[game.id]"
+            class="form-control"/>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"
+                  (click)="saveHoursPlayed(game.id); closeRatingModal()">
+            Guardar
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
