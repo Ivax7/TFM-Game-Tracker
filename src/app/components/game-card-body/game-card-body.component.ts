@@ -82,7 +82,7 @@ export class GameCardBodyComponent implements OnInit {
 
   // GAME STATUS
   onGameUpdated(id: number) {
-    this.gameUpdated.emit(id);
+    this.gameUpdated.emit(this.game);
   }
 
   goToDetail(gameId: number): void {
@@ -181,7 +181,10 @@ export class GameCardBodyComponent implements OnInit {
   const hours = this.userHours[gameId] || 0;
 
   this.userGameService.updateHoursPlayed(userId, gameId, hours).subscribe({
-      next: () => console.log(`✅ Horas jugadas (${hours}) guardadas para juego ${gameId}`),
+      next: () => {  
+      console.log(`✅ Horas jugadas (${hours}) guardadas para juego ${gameId}`)
+      this.gameUpdated.emit(this.game)
+      },
       error: err => console.error('❌ Error guardando horas jugadas', err)
     });
   }

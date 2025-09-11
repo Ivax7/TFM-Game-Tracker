@@ -42,9 +42,9 @@
 
   <!-- CONTENT -->
   <section [ngSwitch]="activeTab" class="mt-3">
-    <app-playing *ngSwitchCase="'playing'"></app-playing>
-    <app-beaten *ngSwitchCase="'beaten'"></app-beaten>
-    <app-completed *ngSwitchCase="'completed'"></app-completed>
-    <app-abandoned *ngSwitchCase="'abandoned'"></app-abandoned>
+    <app-playing *ngSwitchCase="'playing'" [allGames]="games" (gameUpdated)="onGameUpdated($event)"></app-playing>
+    <app-beaten *ngSwitchCase="'beaten'" [allGames]="games" (gameUpdated)="onGameUpdated($event)"></app-beaten>
+    <app-completed *ngSwitchCase="'completed'" [allGames]="games" (gameUpdated)="onGameUpdated($event)"></app-completed>
+    <app-abandoned *ngSwitchCase="'abandoned'" [allGames]="games" (gameUpdated)="onGameUpdated($event)"></app-abandoned>
   </section>
 </div>

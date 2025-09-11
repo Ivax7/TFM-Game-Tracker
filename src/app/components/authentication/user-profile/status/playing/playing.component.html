@@ -8,7 +8,7 @@
         <app-game-card-body 
           [game]="game" 
           [isUserProfile]="true" 
-          (gameUpdated)="onGameUpdated($event)">
+          (gameUpdated)="gameUpdated.emit($event)">
         </app-game-card-body>
       </div>
     </div>

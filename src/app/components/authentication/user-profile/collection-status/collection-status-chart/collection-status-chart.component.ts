@@ -12,13 +12,10 @@ import { AuthService } from '../../../auth.service';
 export class CollectionStatusChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  // Tipar como literal string
   chartType = 'pie' as const;
 
-  // Labels
   chartLabels: string[] = ['Playing', 'Beaten', 'Completed 100%', 'Abandoned'];
 
-  // Datos del gráfico
   chartData: ChartData<'pie', number[], string> = {
     labels: this.chartLabels,
     datasets: [

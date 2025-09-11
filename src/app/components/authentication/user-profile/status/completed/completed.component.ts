@@ -1,5 +1,5 @@
 // completed.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, input } from '@angular/core';
 import { AuthService } from '../../../auth.service';
 import { UserGameService } from '../../../../../services/user-game.service';
 @Component({
@@ -7,7 +7,9 @@ import { UserGameService } from '../../../../../services/user-game.service';
   templateUrl: './completed.component.html',
   styleUrl: './completed.component.css'
 })
-export class CompletedComponent implements OnInit {
+export class CompletedComponent implements OnChanges {
+  @Input() allGames: any[] = [];
+  @Output() gameUpdated = new EventEmitter<number>();
   games: any[] = [];
 
   constructor(
@@ -24,10 +26,14 @@ export class CompletedComponent implements OnInit {
     });
   }
 
-  onGameUpdated(updatedGame: any) {
-  const index = this.games.findIndex(g => g.id === updatedGame.id);
-  if (index !== -1) {
-      this.games[index] = updatedGame;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['allGames']) {
+      // Filtrar solo los juegos con status "playing"
+      this.games = this.allGames.filter(g => g.status === 'playing');
     }
+  }
+  
+  onGameUpdated(updatedGame: any) {
+    this.gameUpdated.emit(updatedGame);
   }
 }
