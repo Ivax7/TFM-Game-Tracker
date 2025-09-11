@@ -1,4 +1,6 @@
-<h5 class="mb-3">Commpleted</h5>
+<h1 class="mb-3">Completed</h1>
+<h2 class="badge bg-primary">{{ games.length }} games</h2>
+
 <div *ngIf="games.length > 0; else noGames">
   <div class="row g-3">
     <div *ngFor="let game of games" class="col-md-4">

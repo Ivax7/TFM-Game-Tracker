@@ -1,0 +1,50 @@
+<div class="container py-4">
+  <header class="mb-4 text-center">
+    <h1 class="fw-bold">🎮 {{user.name}}'s Collection</h1>
+  </header>
+
+  <app-collection-status-chart></app-collection-status-chart>
+
+
+  <!-- STATUS NAVIGATION -->
+  <nav class="mb-4">
+    <ul class="nav nav-pills justify-content-center gap-2">
+      <li class="nav-item">
+        <button class="nav-link"
+          [class.active]="activeTab === 'playing'"
+          (click)="activeTab = 'playing'">
+          🎮 Playing
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"
+          [class.active]="activeTab === 'beaten'"
+          (click)="activeTab = 'beaten'">
+          ✅ Beaten
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"
+          [class.active]="activeTab === 'completed'"
+          (click)="activeTab = 'completed'">
+          🏆 Completed 100%
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"
+          [class.active]="activeTab === 'abandoned'"
+          (click)="activeTab = 'abandoned'">
+          🚫 Abandoned
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT -->
+  <section [ngSwitch]="activeTab" class="mt-3">
+    <app-playing *ngSwitchCase="'playing'"></app-playing>
+    <app-beaten *ngSwitchCase="'beaten'"></app-beaten>
+    <app-completed *ngSwitchCase="'completed'"></app-completed>
+    <app-abandoned *ngSwitchCase="'abandoned'"></app-abandoned>
+  </section>
+</div>

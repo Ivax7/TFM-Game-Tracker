@@ -11,6 +11,7 @@ import { GameService } from '../../../../services/game.service';
 })
 export class WishlistComponent implements OnInit {
   wishlist: any[] = [];
+  user: any;
 
   constructor(
     private userGameService: UserGameService,
@@ -19,7 +20,8 @@ export class WishlistComponent implements OnInit {
     
   ) {}
   ngOnInit(): void {
-  const userId = this.auth.getCurrentUser()?.id;
+  this.user = this.auth.getCurrentUser();
+  const userId = this.user?.id;
   if (!userId) return;
 
   this.userGameService.getWishlist(userId).subscribe({

@@ -8,6 +8,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { UserProfileComponent } from './components/authentication/user-profile/user-profile.component';
 import { TrendingPageComponent } from './components/trending-page/trending-page.component';
 import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
+import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
 
 const routes: Routes = [
   { 
@@ -50,7 +51,7 @@ const routes: Routes = [
   },
   { 
     path: 'collection',
-    component: WishlistComponent
+    component: CollectionStatusComponent
   },
   { 
     path: 'lists',

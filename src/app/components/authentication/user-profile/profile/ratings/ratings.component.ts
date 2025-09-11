@@ -13,6 +13,7 @@ export class RatingsComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   ratingCounts: number[] = [0, 0, 0, 0, 0];
+  totalRatedGames = 0;
 
   chartOptions: ChartOptions<'bar'> = {
     responsive: true,
@@ -47,6 +48,7 @@ export class RatingsComponent implements OnInit {
     if (!userId) return;
 
     this.userGameService.getGamesByUser(userId).subscribe(games => {
+      // Cuantos juegos tienen tantas estrellas
       this.ratingCounts = [0, 0, 0, 0, 0];
 
       games.forEach(game => {
@@ -54,6 +56,8 @@ export class RatingsComponent implements OnInit {
           this.ratingCounts[game.rating - 1] += 1;
         }
       });
+
+      this.totalRatedGames = this.ratingCounts.reduce((a, b) => a + b, 0);
 
       const maxY = Math.max(...this.ratingCounts);
 

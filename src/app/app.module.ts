@@ -32,6 +32,8 @@ import { UserStatsComponent } from './components/authentication/user-profile/use
 import { RatingsComponent } from './components/authentication/user-profile/profile/ratings/ratings.component';
 import { ReviewsComponent } from './components/authentication/user-profile/profile/reviews/reviews.component';
 import { NgChartsModule } from 'ng2-charts';
+import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
+import { CollectionStatusChartComponent } from './components/authentication/user-profile/collection-status/collection-status-chart/collection-status-chart.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { NgChartsModule } from 'ng2-charts';
     UserStatsComponent,
     RatingsComponent,
     ReviewsComponent,
+    CollectionStatusComponent,
+    CollectionStatusChartComponent,
   ],
   imports: [
     BrowserModule,
