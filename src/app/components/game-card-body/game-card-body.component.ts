@@ -55,12 +55,26 @@ export class GameCardBodyComponent implements OnInit {
     next: (games) => {
       this.userGames = games;
 
-      // 👇 Inicializa los ratings para que el template los pinte
-      games.forEach(game => {
-        if (game.rating) {
-          this.userRatings[game.gameId] = game.rating;
+      games.forEach(userGame => {
+
+        // Inicializar ratings 
+        if (userGame.rating) {
+          this.userRatings[userGame.gameId] = userGame.rating;
         }
+        
+        // Inicializar status
+        if (userGame.gameId === this.game.id) {
+          this.selectedStatus = userGame.status || null;
+          this.game.status = userGame.status || null;
+        }
+
+        // Inicializar horas jugadas
+        if(userGame.hoursPlayed !== undefined && userGame.gameId === this.game.id) {
+          this.userHours[userGame.gameId] = userGame.hoursPlayed
+        }
+      
       });
+
     },
       error: (err) => console.error('❌ Error cargando juegos del usuario', err)
     });
