@@ -17,25 +17,19 @@ export class PlayingComponent implements OnChanges {
     private userGameService: UserGameService
   ) {}
 
-  ngOnInit(): void {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId) return;
-
-    this.userGameService.getEnrichedGamesByUser(userId).subscribe(allGames => {
-      console.log('Juegos playing enriched:', allGames);
-    
-      this.games = allGames.filter(game => game.status === 'playing');
-    });
-  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['allGames']) {
-      // Filtrar solo los juegos con status "playing"
+      // Filter by "playing"
       this.games = this.allGames.filter(g => g.status === 'playing');
     }
   }
 
   onGameUpdated(updatedGame: any) {
     this.gameUpdated.emit(updatedGame);
+  }
+
+  trackByGameId(index: number, game: any) {
+    return game.id;
   }
 
 }

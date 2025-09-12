@@ -3,7 +3,7 @@
 
 <div *ngIf="games.length > 0; else noGames">
   <div class="row g-3">
-    <div *ngFor="let game of games" class="col-md-4">
+    <div *ngFor="let game of games; trackBy: trackByGameId" class="col-md-4">
       <div class="card h-100 shadow-sm">
         <app-game-card-body 
           [game]="game" 

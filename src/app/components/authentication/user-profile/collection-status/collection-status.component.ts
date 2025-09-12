@@ -27,11 +27,11 @@ export class CollectionStatusComponent implements OnInit {
     const userId = this.auth.getCurrentUser()?.id;
     if (!userId) return;
 
-    this.userGameService.getGamesByUser(userId).subscribe(games => {
-      this.games = [...games];
+    // Load enriched info games in the father component
+    this.userGameService.getEnrichedGamesByUser(userId).subscribe(allGames => {
+      this.games = [...allGames];
     });
   }
-
 
   onGameUpdated(updatedGame: any) {
     this.loadGames();
