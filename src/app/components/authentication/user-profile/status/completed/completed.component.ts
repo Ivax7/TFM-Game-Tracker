@@ -29,7 +29,10 @@ export class CompletedComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['allGames']) {
       // Filter by "playing"
-      this.games = this.allGames.filter(g => g.status === 'completed');
+      this.games = this.allGames
+      .filter(g => g.status === 'completed')
+      .slice()
+      .reverse();
     }
   }
   

@@ -21,7 +21,10 @@ export class AbandonedComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['allGames']) {
       // Filter by "abandoned"
-      this.games = this.allGames.filter(g => g.status === 'abandoned');
+      this.games = this.allGames
+        .filter(g => g.status === 'abandoned')
+        .slice()
+        .reverse();
     }
   }
 

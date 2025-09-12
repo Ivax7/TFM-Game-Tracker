@@ -29,6 +29,8 @@ export class GameCardBodyComponent implements OnInit {
   selectedStatus: string | null = null;
   modalInstance: any;
 
+  pendingStatus: 'playing' | 'beaten' | 'completed' | 'abandoned' | null = null;
+
   // RATINGS
   @Input() userGames: any[] = [];
   userRatings: { [gameId: number]: number } = {};
@@ -110,28 +112,44 @@ export class GameCardBodyComponent implements OnInit {
   }
 
   // Setear Status
-
+  // Setear Status (solo en memoria, no en backend todavía)
   setStatus(status: 'playing' | 'beaten' | 'completed' | 'abandoned'): void {
+    this.pendingStatus = status;
+    this.modalInstance?.hide();
+    this.openRatingModal();
+  }
+
+
+  // Guardar todo en backend cuando el user pulse "Guardar"
+  saveGameData(gameId: number): void {
     const userId = this.auth.getCurrentUser()?.id;
-    if(!userId) return;
+    if (!userId || !this.pendingStatus) return;
 
     const payload = {
       gameId: this.game.id,
       gameName: this.game.name,
       gameImage: this.game.background_image,
-      status
-    }
+      status: this.pendingStatus,
+      rating: this.userRatings[this.game.id] || null,
+      hoursPlayed: this.userHours[this.game.id] || 0
+    };
 
     this.userGameService.updateGameStatus(userId, payload).subscribe({
       next: () => {
-        this.selectedStatus = status;
-        this.game.status = status;
-        this.modalInstance?.hide();
-        this.openRatingModal();
-        console.log('✅ Estado guardado correctamente:', status);
+        this.selectedStatus = this.pendingStatus;
+        this.game.status = this.pendingStatus;
+        this.game.rating = payload.rating;
+        this.pendingStatus = null; // limpiar
+        console.log('✅ Datos guardados:', payload);
+        this.gameUpdated.emit(this.game);
+        this.closeRatingModal();
       },
-      error: err => console.log('❌ Error al guardar el estado:', err)
+      error: err => console.error('❌ Error al guardar datos del juego', err)
     });
+  }
+
+  setUserRating(gameId: number, rating: number): void {
+    this.userRatings[gameId] = rating;
   }
 
   clearStatus(): void {
@@ -158,37 +176,5 @@ export class GameCardBodyComponent implements OnInit {
       error: err => console.error('❌ Error al limpiar estado', err)
     })
   }
-
-  saveRating(gameId: number, rating: number): void {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId) return;
-  
-    this.userGameService.updateRating(userId, gameId, rating).subscribe({
-      next: () => console.log(`✅ Rating ${rating} guardado para juego ${gameId}`),
-      error: err => console.error('❌ Error guardando rating', err)
-    });
-  }
-
-  setUserRating(gameId: number, rating: number): void {
-    this.userRatings[gameId] = rating;
-    this.saveRating(gameId, rating);
-  }
-
-  saveHoursPlayed(gameId: number): void {
-  const userId = this.auth.getCurrentUser()?.id;
-  if (!userId) return;
-
-  const hours = this.userHours[gameId] || 0;
-
-  this.userGameService.updateHoursPlayed(userId, gameId, hours).subscribe({
-      next: () => {  
-      console.log(`✅ Horas jugadas (${hours}) guardadas para juego ${gameId}`)
-      this.gameUpdated.emit(this.game)
-      },
-      error: err => console.error('❌ Error guardando horas jugadas', err)
-    });
-  }
-
-
 
 }

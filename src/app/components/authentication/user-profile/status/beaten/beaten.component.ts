@@ -31,7 +31,10 @@ export class BeatenComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['allGames']) {
       // Filtrar by "beaten"
-      this.games = this.allGames.filter(g => g.status === 'beaten');
+      this.games = this.allGames
+        .filter(g => g.status === 'beaten')
+        .slice()
+        .reverse();
     }
   }
 
