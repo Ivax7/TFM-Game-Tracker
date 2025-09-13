@@ -1,1 +1,46 @@
-<p class="text-center text-muted">Tu wishlist está vacía por ahora.</p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="fw-bold">Custom Lists</h2>
+  <button class="btn btn-sm btn-outline-primary" (click)="openListModal()">+ New</button>
+</div>
+
+<!-- Mensaje cuando no hay listas -->
+<p class="text-center text-muted" *ngIf="lists.length === 0">Custom lists are empty.</p>
+
+<!-- Aquí podrías renderizar listas en el futuro -->
+<ul class="list-group mt-3" *ngIf="lists.length > 0">
+  <li *ngFor="let list of lists" class="list-group-item">
+    <h5>{{ list.title }}</h5>
+    <p class="mb-0 text-muted">{{ list.description }}</p>
+  </li>
+</ul>
+
+<!-- List Modal -->
+<div #listModal class="modal fade" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="listModalLabel">New List</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="list-title" class="form-label">Title</label>
+          <input type="text" id="list-title" class="form-control" [(ngModel)]="newList.title">
+        </div>
+
+        <div class="mb-3">
+          <label for="list-description" class="form-label">Description</label>
+          <input type="text" id="list-description" class="form-control" [(ngModel)]="newList.description">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveNewList()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

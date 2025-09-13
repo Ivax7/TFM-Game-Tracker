@@ -37,6 +37,7 @@
   (gameUpdated)="onGameUpdated($event)"
   ></app-game-action-buttons>
   
+
   
   <!-- MODAL -->
   
@@ -145,7 +146,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-primary"
                   (click)="saveGameData(game.id); closeRatingModal()">
-            Guardar
+            Save
           </button>
         </div>
 
@@ -153,6 +154,41 @@
     </div>
   </div>
 
+
+
+  <!-- Botón para abrir el list modal -->
+  <button class="btn btn-sm btn-outline-secondary mt-2" (click)="openListModal()">
+    📋
+  </button>
+
+  <!-- List Modal -->
+  <div #listModal class="modal fade" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="listModalLabel">Add "{{ game.name }}" to a List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <p *ngIf="lists.length === 0" class="text-muted text-center">
+            No lists available. Create one first.
+          </p>
+
+          <ul class="list-group" *ngIf="lists.length > 0">
+            <li *ngFor="let list of lists" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>{{ list.title }}</span>
+              <button class="btn btn-sm btn-primary" (click)="addToList(list)">
+                Add
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 </div>
 

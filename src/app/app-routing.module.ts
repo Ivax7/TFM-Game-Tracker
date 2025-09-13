@@ -9,6 +9,7 @@ import { UserProfileComponent } from './components/authentication/user-profile/u
 import { TrendingPageComponent } from './components/trending-page/trending-page.component';
 import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
 import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
+import { ListsComponent } from './components/authentication/user-profile/lists/lists.component';
 
 const routes: Routes = [
   { 
@@ -55,7 +56,7 @@ const routes: Routes = [
   },
   { 
     path: 'lists',
-    component: WishlistComponent
+    component: ListsComponent
   },
   { 
     path: 'Settings',

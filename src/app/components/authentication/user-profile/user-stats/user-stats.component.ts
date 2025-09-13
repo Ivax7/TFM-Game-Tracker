@@ -31,47 +31,15 @@ export class UserStatsComponent implements OnInit{
 
     this.userGameService.getEnrichedGamesByUser(userId).subscribe({
       next: (allGames: any[]) => {
-        this.playedGamesCount = allGames.filter(games => games.status === 'completed' || games.status === 'beaten').length;
+        this.playedGamesCount = allGames.filter(games => games.status === 'completed' || games.status === 'beaten' || games.status === 'completed').length;
       },
       error: (err) => console.error('Error cargando juegos:', err)
     });
+    
 
   }
 
 
-
-
-
-// private loadGames(): void {
-//     this.loading = true;
-//     this.gameService.get10TrendingGames(1).subscribe({
-//       next: (data: any) => {
-//         this.games = data.results.map((game: any) => ({
-//           ...game,
-//           loadingPlaytime: true,
-//           playtimeMain: null
-//         }));
-
-//         // cargar playtime de cada juego
-//         this.games.forEach((game, index) => {
-//           this.gameService.getGameWithPlaytime(game.slug).subscribe({
-//             next: (fullGameData) => {
-//               this.games[index] = { ...game, ...fullGameData, loadingPlaytime: false };
-//             },
-//             error: () => {
-//               this.games[index].loadingPlaytime = false;
-//             }
-//           });
-//         });
-
-//         this.loading = false;
-//       },
-//       error: (err) => {
-//         console.error('Error al cargar juegos:', err);
-//         this.loading = false;
-//       }
-//     });
-//   }
 }
 
 

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../authentication/auth.service';
 import { UserGameService } from '../../services/user-game.service';
 import { ReviewService } from '../../services/review.service';
-
+import { ListService } from '../../services/list.service';
 declare var bootstrap: any;
 
 @Component({
@@ -17,6 +17,9 @@ export class GameCardBodyComponent implements OnInit {
 
   @ViewChild('ratingModal') ratingModal!: ElementRef;
   ratingModalInstance: any;
+
+  @ViewChild('listModal') listModal!: ElementRef;
+  listModalInstance: any;
 
   @Input() game: any = {};
   @Input() isUserProfile: boolean = false;
@@ -42,10 +45,14 @@ export class GameCardBodyComponent implements OnInit {
   reviews: { userName: string, text: string }[] = [];
   newReview: string = '';
 
+  // LISTS
+  lists: any[] = [];
+
   constructor(
     private router: Router,
     private userGameService: UserGameService,
     private reviewService: ReviewService,
+    private listService: ListService,
     public auth: AuthService
   ) {}
 
@@ -80,6 +87,13 @@ export class GameCardBodyComponent implements OnInit {
     },
       error: (err) => console.error('❌ Error cargando juegos del usuario', err)
     });
+
+    // load custom user lists
+    this.listService.getUserLists(userId).subscribe({
+      next: (lists: any[]) => this.lists = lists,
+      error: (err: any) => console.error('❌ Error cargando listas', err)
+    });
+
   }
 
   // GAME STATUS
@@ -97,6 +111,27 @@ export class GameCardBodyComponent implements OnInit {
     const modalEl = this.statusModal.nativeElement;
     this.modalInstance = new bootstrap.Modal(modalEl);
     this.modalInstance.show();
+  }
+
+  // Open List modal
+  openListModal(): void {
+    const modalEl = this.listModal.nativeElement;
+    this.listModalInstance = new bootstrap.Modal(modalEl);
+    this.listModalInstance.show();
+  }
+
+  // Añadir a lista seleccionada
+  addToList(list: any): void {
+    const userId = this.auth.getCurrentUser()?.id;
+    if (!userId) return;
+
+    this.listService.addGameToList(userId, list.id, this.game).subscribe({
+      next: () => {
+        console.log(`✅ Juego "${this.game.name}" añadido a la lista "${list.title}"`);
+        this.listModalInstance.hide();
+      },
+      error: (err) => console.error('❌ Error al añadir a lista', err)
+    });
   }
 
   // RATING & HOURS MODAL
