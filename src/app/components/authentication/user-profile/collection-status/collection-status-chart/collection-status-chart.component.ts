@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { UserGameService } from '../../../../../services/user-game.service';
@@ -9,8 +9,9 @@ import { AuthService } from '../../../auth.service';
   templateUrl: './collection-status-chart.component.html',
   styleUrls: ['./collection-status-chart.component.css']
 })
-export class CollectionStatusChartComponent implements OnInit {
+export class CollectionStatusChartComponent implements OnChanges {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  @Input() games: any[] = [];
 
   chartType = 'pie' as const;
 
@@ -41,30 +42,31 @@ export class CollectionStatusChartComponent implements OnInit {
     private auth: AuthService
   ) {}
 
-  ngOnInit(): void {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId) return;
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['games']) {
+      this.updateChart();
+    }
+  }
 
-    this.userGameService.getGamesByUser(userId).subscribe(games => {
-      const counts = { playing: 0, beaten: 0, completed: 0, abandoned: 0 };
-
-      games.forEach(game => {
-        switch (game.status) {
-          case 'playing': counts.playing++; break;
-          case 'beaten': counts.beaten++; break;
-          case 'completed': counts.completed++; break;
-          case 'abandoned': counts.abandoned++; break;
-        }
-      });
-
-      this.chartData.datasets[0].data = [
-        counts.playing,
-        counts.beaten,
-        counts.completed,
-        counts.abandoned
-      ];
-
-      this.chart?.update();
+  private updateChart(): void {
+    const counts = { playing: 0, beaten: 0, completed: 0, abandoned: 0 };
+    
+    this.games.forEach(game => {
+      switch (game.status) {
+        case 'playing': counts.playing++; break;
+        case 'beaten': counts.beaten++; break;
+        case 'completed': counts.completed++; break;
+        case 'abandoned': counts.abandoned++; break;
+      }
     });
+
+    this.chartData.datasets[0].data = [
+      counts.playing,
+      counts.beaten,
+      counts.completed,
+      counts.abandoned
+    ];
+
+    this.chart?.update();
   }
 }
