@@ -27,4 +27,8 @@ export class ListService {
     });
   }
 
+  deleteList(listId: number) {
+    return this.http.delete(`${this.apiUrl}/${listId}`);
+  }
+
 }

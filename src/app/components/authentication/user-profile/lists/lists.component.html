@@ -25,6 +25,10 @@
     <p *ngIf="!list.games || list.games.length === 0" class="text-muted fst-italic mt-2">
       No games yet.
     </p>
+
+    <button class="btn btn-sm btn-outline-danger" (click)="deleteList(list.id)">
+      🗑 Delete
+    </button>
   </li>
 </ul>
 

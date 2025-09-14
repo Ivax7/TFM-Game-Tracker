@@ -46,13 +46,12 @@ ngOnInit() {
     next: (lists) => {
       this.lists = lists.map(l => ({
         ...l,
-        games: l.games ?? []   // 👈 siempre inicializa
+        games: l.games ?? []
       }));
     },
     error: (err) => console.error('❌ Error cargando listas', err)
   });
 }
-
 
 
   // Open list modal
@@ -81,6 +80,17 @@ ngOnInit() {
       },
       error: (err) => console.log('❌ Error creando lista', err)
     });
+  }
+
+  deleteList(listId: number) {
+    if(!confirm('Are you sure you want to delete this list? ')) return;
+
+    this.listService.deleteList(listId).subscribe({
+      next: () => {
+        this.lists = this.lists.filter(l => l.id !== listId);
+      },
+      error: (err) => console.log('❌ Error borrando lista', err)
+    })
   }
 
 }
