@@ -4,6 +4,21 @@ import { AuthService } from '../../auth.service';
 
 declare var bootstrap: any;
 
+// LISTS
+  interface GameInList {
+  userId: number;
+  gameId: number;
+  gameName: string;
+  gameImage: string;
+}
+
+interface UserList {
+  id: number;
+  title: string;
+  description: string;
+  games: GameInList[];
+}
+
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
@@ -13,7 +28,9 @@ export class ListsComponent implements OnInit{
   @ViewChild('listModal') listModal!: ElementRef;
   modalInstance: any;
 
-  lists: { title: string; description: string }[] = [];
+
+  
+  lists: UserList[] = [];
   newList = { title: '', description: ''};
 
   constructor (
@@ -21,15 +38,21 @@ export class ListsComponent implements OnInit{
     private auth: AuthService
   ) {}
 
-  ngOnInit() {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId) return;
+ngOnInit() {
+  const userId = this.auth.getCurrentUser()?.id;
+  if (!userId) return;
 
-    this.listService.getUserLists(userId).subscribe({
-      next: (lists) => this.lists = lists,
-      error: (err) => console.error('❌ Error cargando listas', err)
-    });
-  }
+  this.listService.getUserLists(userId).subscribe({
+    next: (lists) => {
+      this.lists = lists.map(l => ({
+        ...l,
+        games: l.games ?? []   // 👈 siempre inicializa
+      }));
+    },
+    error: (err) => console.error('❌ Error cargando listas', err)
+  });
+}
+
 
 
   // Open list modal

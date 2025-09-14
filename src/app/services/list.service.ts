@@ -18,7 +18,6 @@ export class ListService {
     return this.http.get<any[]>(`${this.apiUrl}/${userId}`);
   }
 
-
   addGameToList(userId: number, listId: number, game: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${listId}/games`, {
       userId,
@@ -27,4 +26,5 @@ export class ListService {
       gameImage: game.background_image
     });
   }
+
 }

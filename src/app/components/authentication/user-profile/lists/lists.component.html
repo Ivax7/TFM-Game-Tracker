@@ -3,18 +3,32 @@
   <button class="btn btn-sm btn-outline-primary" (click)="openListModal()">+ New</button>
 </div>
 
-<!-- Mensaje cuando no hay listas -->
 <p class="text-center text-muted" *ngIf="lists.length === 0">Custom lists are empty.</p>
 
-<!-- Aquí podrías renderizar listas en el futuro -->
 <ul class="list-group mt-3" *ngIf="lists.length > 0">
   <li *ngFor="let list of lists" class="list-group-item">
     <h5>{{ list.title }}</h5>
     <p class="mb-0 text-muted">{{ list.description }}</p>
+
+    <!-- Mostrar juegos dentro de la lista -->
+    <div *ngIf="list.games.length > 0" class="mt-2">
+      <h6>🎮 Games in this list:</h6>
+      <ul class="list-unstyled">
+        <li *ngFor="let game of list.games" class="d-flex align-items-center mb-2">
+          <img [src]="game.gameImage" alt="{{ game.gameName }}" width="40" height="40" class="me-2 rounded">
+          <span>{{ game.gameName }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Si no hay juegos -->
+    <p *ngIf="!list.games || list.games.length === 0" class="text-muted fst-italic mt-2">
+      No games yet.
+    </p>
   </li>
 </ul>
 
-<!-- List Modal -->
+
 <div #listModal class="modal fade" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
