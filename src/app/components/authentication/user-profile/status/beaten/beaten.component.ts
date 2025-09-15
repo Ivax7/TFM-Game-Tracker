@@ -33,8 +33,6 @@ export class BeatenComponent implements OnChanges {
       // Filtrar by "beaten"
       this.games = this.allGames
         .filter(g => g.status === 'beaten')
-        .slice()
-        .reverse();
     }
   }
 

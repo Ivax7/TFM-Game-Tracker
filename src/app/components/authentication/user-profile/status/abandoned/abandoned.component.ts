@@ -23,8 +23,6 @@ export class AbandonedComponent implements OnChanges {
       // Filter by "abandoned"
       this.games = this.allGames
         .filter(g => g.status === 'abandoned')
-        .slice()
-        .reverse();
     }
   }
 

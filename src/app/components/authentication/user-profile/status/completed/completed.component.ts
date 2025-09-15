@@ -31,8 +31,6 @@ export class CompletedComponent implements OnChanges {
       // Filter by "playing"
       this.games = this.allGames
       .filter(g => g.status === 'completed')
-      .slice()
-      .reverse();
     }
   }
   

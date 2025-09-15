@@ -29,7 +29,7 @@ export class CollectionStatusComponent implements OnInit {
 
     // Load enriched info games in the father component
     this.userGameService.getEnrichedGamesByUser(userId).subscribe(allGames => {
-      this.games = [...allGames];
+      this.games = [...allGames].reverse();
     });
   }
 
