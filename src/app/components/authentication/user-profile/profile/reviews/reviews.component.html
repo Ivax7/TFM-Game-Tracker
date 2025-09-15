@@ -5,10 +5,11 @@
 
   <div class="row row-cols-2 g-4">
     <div class="col" *ngFor="let review of userReviews">
-      <div class="card h-100 shadow-sm">
+      <div class="card h-100 shadow-sm text-decoration-none" [routerLink]="['/game', review.game.gameId]">
         <img *ngIf="review.game?.gameImage" [src]="review.game.gameImage" class="card-img-top" alt="Game image" />
         <div class="card-body">
-          <h5 class="card-title">{{ review.game?.gameName }}</h5>
+          <a class="text-decoration-none text-dark" [routerLink]="['/game', review.game.gameId]">
+          <h5 class="card-title">{{ review.game?.gameName }}</h5></a>
           <p class="text-muted mb-1">{{ review.createdAt | date:'mediumDate' }}</p>
           <p class="text-muted mb-1">{{ review.userName  }}</p>
           <p class="card-text">{{ review.text }}</p>
