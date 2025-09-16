@@ -34,6 +34,7 @@ import { ReviewsComponent } from './components/authentication/user-profile/profi
 import { NgChartsModule } from 'ng2-charts';
 import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
 import { CollectionStatusChartComponent } from './components/authentication/user-profile/collection-status/collection-status-chart/collection-status-chart.component';
+import { SettingsComponent } from './components/authentication/user-profile/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { CollectionStatusChartComponent } from './components/authentication/user
     ReviewsComponent,
     CollectionStatusComponent,
     CollectionStatusChartComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { TrendingPageComponent } from './components/trending-page/trending-page.
 import { WishlistComponent } from './components/authentication/user-profile/wishlist/wishlist.component';
 import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
 import { ListsComponent } from './components/authentication/user-profile/lists/lists.component';
+import { SettingsComponent } from './components/authentication/user-profile/settings/settings.component';
 
 const routes: Routes = [
   { 
@@ -59,8 +60,8 @@ const routes: Routes = [
     component: ListsComponent
   },
   { 
-    path: 'Settings',
-    component: WishlistComponent
+    path: 'settings',
+    component: SettingsComponent
   },
 
   // { 
