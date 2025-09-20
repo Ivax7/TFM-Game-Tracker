@@ -4,7 +4,11 @@
 
   <div class="text-center mb-4">
     <img src="assets/images/profile-pic.jpg" alt="User Avatar" class="rounded-circle mb-2" width="100" height="100">
-    <h4>{{ username }}</h4>
+    <h4>&#64;{{ username }}</h4>
+
+    <h6 *ngIf="displayName" class="text-muted"> {{ displayName }}</h6>
+  
+    <p *ngIf="bio" class="text-secondary">{{ bio }}</p>
   </div>
 
   <div class="d-flex justify-content-center mb-4">

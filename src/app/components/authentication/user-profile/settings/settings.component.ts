@@ -29,9 +29,13 @@ export class SettingsComponent {
   onSave() {
     if (this.form.valid) {
       this.userService.updateUser(this.userId, this.form.value).subscribe({
-        next: () => alert('Profile updated!'),
+        next: (updatedUser) => {
+          alert('Profile updated!');
+          localStorage.setItem('user', JSON.stringify(updatedUser)); // 👈 sincroniza AuthService
+        },
         error: err => console.error(err),
       });
     }
   }
+
 }
