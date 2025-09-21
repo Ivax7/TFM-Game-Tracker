@@ -15,4 +15,8 @@ export class UserService {
   updateUser(id: number, data: { displayName?: string; bio?: string }): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}`, data);
   }
+
+  uploadAvatar(id: number, formData: FormData) {
+    return this.http.patch<any>(`${this.apiUrl}/${id}/avatar`, formData);
+  }
 }

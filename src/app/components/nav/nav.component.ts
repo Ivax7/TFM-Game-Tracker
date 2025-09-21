@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,15 +7,19 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
+  currentUser: any;
+
   constructor(public auth: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.auth.user$.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
 
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);
-  }
-
-  openProfileModal(): void {
-
   }
 }

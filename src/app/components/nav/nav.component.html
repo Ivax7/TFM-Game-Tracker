@@ -26,12 +26,13 @@
             data-bs-toggle="dropdown"
             aria-expanded="false">
             <img 
-              src="assets/images/profile-pic.jpg"
+              [src]="currentUser?.avatarUrl || 'assets/images/profile-pic.jpg'"
               alt="Profile"
               class="rounded-circle"
               width="30"
               height="30"
-              >
+            />
+
           </button>
           
           

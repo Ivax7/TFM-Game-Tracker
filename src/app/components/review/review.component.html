@@ -15,7 +15,7 @@
   <!-- Listado de reseñas -->
   <div *ngIf="reviews.length > 0; else noReviews" class="mt-3">
     <div *ngFor="let review of reviews" class="border rounded p-2 mb-2">
-      <strong>{{ review.userName }}</strong> dijo:
+      <strong> &#64;{{ review.userName }}</strong> dijo:
       <p class="mb-0">{{ review.text }}</p>
     </div>
   </div>

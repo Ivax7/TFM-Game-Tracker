@@ -11,9 +11,24 @@
     </div>
 
     <!-- Columna central: foto y título -->
-    <div class="col-12 col-md-4 mb-3 text-center">
+    <div class="col-12 col-md-4 mb-3 text-center position-relative">
       <h2 class="mb-3">Public profile</h2>
-      <img src="/assets/images/profile-pic.jpg" alt="Profile picture" class="rounded-circle img-fluid" style="max-width: 200px;">
+      
+      <div class="position-relative d-inline-block">
+        <img [src]="avatarUrl"
+          alt="Profile picture"
+          class="rounded-circle img-fluid"
+          style="max-width: 200px;"
+        >
+
+        <label for="avatarInput"
+          class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2"
+          style="cursor: pointer;"
+        >
+        <i class="bi bi-camera"></i>
+        </label>
+        <input type="file" id="avatarInput" (change)="onAvatarChange($event)" hidden>
+      </div>
     </div>
     
     <!-- Columna derecha: formulario -->
