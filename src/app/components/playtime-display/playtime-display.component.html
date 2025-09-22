@@ -1,7 +1,7 @@
 <p>
   ⏱️ Main Story:
   <span *ngIf="!loadingPlaytime">
-    {{ playtime ?? 'N/A' }}h
+    {{ playtime && playtime > 0 ? playtime + 'h' : 'N/A' }}
   </span>
   <span *ngIf="loadingPlaytime">
     <i>Cargando...</i>

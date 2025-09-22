@@ -13,6 +13,11 @@ export class SettingsComponent {
   userId!: number;
   avatarUrl: string = '';
 
+  // CROP IMAGE STATUS
+  showCropper: boolean = false;
+  imageChangedEvent: any = '';
+  croppedImage: Blob | null = null;
+
   constructor(private fb: FormBuilder, private userService: UserService, private auth: AuthService) {
     this.form = this.fb.group({
       displayName: [''],
@@ -45,16 +50,36 @@ export class SettingsComponent {
     }
   }
 
+
+  // CHANGE AVATAR
+
+  // capture image + open cropper
   onAvatarChange(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    this.userService.uploadAvatar(this.userId, formData).subscribe(updatedUser => {
-      this.avatarUrl = updatedUser.avatarUrl;
-      this.auth.updateCurrentUser(updatedUser); // 🔑 actualizar estado global
-    });
+    this.imageChangedEvent = event;
+    this.showCropper = true; // open modal
   }
+
+  // save image base64 (square format)
+  imageCropped(event: any) {
+    console.log("📸 Evento del cropper:", event);
+    this.croppedImage = event.blob;
+  }
+
+  uploadCroppedImage() {
+  if (!this.croppedImage) {
+    console.error("❌ No hay imagen recortada lista.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('avatar', this.croppedImage, 'avatar.png'); // 🔑 blob directo
+
+  this.userService.uploadAvatar(this.userId, formData).subscribe(updatedUser => {
+    this.avatarUrl = updatedUser.avatarUrl;
+    this.auth.updateCurrentUser(updatedUser);
+    this.showCropper = false; // close modal
+  });
+}
+
+
 }

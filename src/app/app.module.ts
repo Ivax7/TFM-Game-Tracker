@@ -35,7 +35,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
 import { CollectionStatusChartComponent } from './components/authentication/user-profile/collection-status/collection-status-chart/collection-status-chart.component';
 import { SettingsComponent } from './components/authentication/user-profile/settings/settings.component';
-
+import { ImageCropperComponent } from 'ngx-image-cropper';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +72,8 @@ import { SettingsComponent } from './components/authentication/user-profile/sett
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    ImageCropperComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
