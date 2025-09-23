@@ -2,92 +2,45 @@
   <div class="row">
     
     <!-- Columna izquierda: menú -->
-    <div class="col-12 col-md-3 mb-3">
+    <div class="col-12 col-md-3 mb-3 settings-menu">
       <ul class="list-group">
-        <li class="list-group-item active">Profile</li>
-        <li class="list-group-item">Account</li>
-        <li class="list-group-item">Email</li>
+        <li class="list-group-item"
+            [ngClass]="{ 'active': activeTab === 'profile'}"
+            (click)="activeTab ='profile'">Profile</li>
+
+        <li class="list-group-item"
+            [ngClass]="{ 'active': activeTab === 'account'}"
+            (click)="activeTab = 'account'">Account</li>
+
+        <li class="list-group-item"
+            [ngClass]="{ 'active': activeTab === 'email'}"
+            (click)="activeTab = 'email'">Email</li>
       </ul>
     </div>
 
-    <!-- Columna central: foto y título -->
-    <div class="col-12 col-md-4 mb-3 text-center position-relative">
-      <h2 class="mb-3">Public profile</h2>
-      
-      <!-- Avatar actual -->
-      <div class="position-relative d-inline-block">
-        <img [src]="avatarUrl"
-          alt="Profile picture"
-          class="rounded-circle img-fluid"
-          style="max-width: 200px;">
-
-        <label for="avatarInput"
-          class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2"
-          style="cursor: pointer;">
-          <i class="bi bi-camera"></i>
-        </label>
-        <input type="file" id="avatarInput" (change)="onAvatarChange($event)" hidden>
-      </div>
-
-
-      <!-- Modal con Cropper -->
-      <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showCropper }" *ngIf="showCropper">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Adjust your profile picture</h5>
-              <button type="button" class="btn-close" (click)="showCropper=false"></button>
-            </div>
-            <div class="modal-body text-center">
-              <image-cropper
-                [imageChangedEvent]="imageChangedEvent"
-                [maintainAspectRatio]="true"
-                [aspectRatio]="1/1"
-                [resizeToWidth]="200"
-                format="png"
-                [roundCropper]="true"
-                (imageCropped)="imageCropped($event)">
-              </image-cropper>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="showCropper=false">Cancel</button>
-              <button type="button" class="btn btn-primary" (click)="uploadCroppedImage()">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
     
-    <!-- Columna derecha: formulario -->
-    <div class="col-12 col-md-5 mb-3">
-      <form [formGroup]="form" (ngSubmit)="onSave()">
-        <div class="mb-3">
-          <label for="display-name" class="form-label">Display Name</label>
-          <input
-            type="text"
-            id="display-name"
-            class="form-control"
-            formControlName="displayName"
-            placeholder="Your display name"
-          >
-        </div>
-      
-        <div class="mb-3">
-          <label for="bio" class="form-label">Bio</label>
-          <input
-            type="text"
-            id="bio"
-            class="form-control"
-            formControlName="bio"
-            placeholder="Tell us about yourself"
-          >
-        </div>
-      
-        <button type="submit" class="btn btn-primary">Save</button>
-      </form>
-    </div>
+    <!-- Columna central + derecha -->
 
+    <div class="col-12 col-md-9">
+      <div [ngSwitch]="activeTab">
+
+        <!-- Profile -->
+        <div *ngSwitchCase="'profile'">
+          <app-settings-profile></app-settings-profile>
+        </div>
+
+        <!-- Account -->
+        <div *ngSwitchCase="'account'">
+          <app-settings-account></app-settings-account>
+        </div>
+        
+        <!-- Email -->
+        <div *ngSwitchCase="'email'">
+          <app-settings-email></app-settings-email>
+        </div>
+
+      </div>
+    </div>
 
   </div>
 </div>

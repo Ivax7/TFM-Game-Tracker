@@ -36,6 +36,9 @@ import { CollectionStatusComponent } from './components/authentication/user-prof
 import { CollectionStatusChartComponent } from './components/authentication/user-profile/collection-status/collection-status-chart/collection-status-chart.component';
 import { SettingsComponent } from './components/authentication/user-profile/settings/settings.component';
 import { ImageCropperComponent } from 'ngx-image-cropper';
+import { SettingsAccountComponent } from './components/authentication/user-profile/settings/settings-account/settings-account.component';
+import { SettingsProfileComponent } from './components/authentication/user-profile/settings/settings-profile/settings-profile.component';
+import { SettingsEmailComponent } from './components/authentication/user-profile/settings/settings-email/settings-email.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +68,9 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
     CollectionStatusComponent,
     CollectionStatusChartComponent,
     SettingsComponent,
+    SettingsAccountComponent,
+    SettingsProfileComponent,
+    SettingsEmailComponent,
   ],
   imports: [
     BrowserModule,
