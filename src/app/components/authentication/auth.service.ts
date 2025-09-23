@@ -48,6 +48,8 @@ export class AuthService {
 
   updateCurrentUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
+    // emit new value to every user$ subscriber
+    this.userSubject.next(user); // updateamos la info del user
   }
 
 }

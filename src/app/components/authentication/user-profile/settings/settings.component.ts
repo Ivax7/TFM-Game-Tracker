@@ -66,20 +66,20 @@ export class SettingsComponent {
   }
 
   uploadCroppedImage() {
-  if (!this.croppedImage) {
-    console.error("❌ No hay imagen recortada lista.");
-    return;
+    if (!this.croppedImage) {
+      console.error("❌ No hay imagen recortada lista.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append('avatar', this.croppedImage, 'avatar.png'); // 🔑 blob directo
+  
+    this.userService.uploadAvatar(this.userId, formData).subscribe(updatedUser => {
+      this.avatarUrl = updatedUser.avatarUrl;
+      this.auth.updateCurrentUser(updatedUser);
+      this.showCropper = false; // close modal
+    });
   }
-
-  const formData = new FormData();
-  formData.append('avatar', this.croppedImage, 'avatar.png'); // 🔑 blob directo
-
-  this.userService.uploadAvatar(this.userId, formData).subscribe(updatedUser => {
-    this.avatarUrl = updatedUser.avatarUrl;
-    this.auth.updateCurrentUser(updatedUser);
-    this.showCropper = false; // close modal
-  });
-}
 
 
 }
