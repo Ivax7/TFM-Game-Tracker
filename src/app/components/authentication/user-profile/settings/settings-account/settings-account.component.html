@@ -37,32 +37,37 @@
     </div>
   </div>
 
-  <!-- Columna derecha (formulario) -->
-  <!-- <div class="col-12 col-md-5 mb-3">
-    <form [formGroup]="form" (ngSubmit)="onSave()">
-      <div class="mb-3">
-        <label for="display-name" class="form-label">Display Name</label>
-        <input
-          type="text"
-          id="display-name"
-          class="form-control"
-          formControlName="displayName"
-          placeholder="Your display name"
-        >
+  <div class="col-12 col-md-5 mb-3">
+  <h2 class="mb-3">Delete Account</h2>
+  <p>Delete your account and data</p>
+
+  <!-- Botón principal -->
+  <button class="btn btn-danger" (click)="showDeleteModal = true">
+    Delete Account
+  </button>
+
+  <!-- Modal de confirmación -->
+  <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showDeleteModal }" *ngIf="showDeleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Account Deletion</h5>
+          <button type="button" class="btn-close" (click)="showDeleteModal = false"></button>
+        </div>
+
+        <div class="modal-body">
+          <p>⚠️ Are you sure you want to delete your account? This action cannot be undone.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="showDeleteModal = false">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDeleteAccount()">Delete</button>
+        </div>
+
       </div>
-    
-      <div class="mb-3">
-        <label for="bio" class="form-label">Bio</label>
-        <input
-          type="text"
-          id="bio"
-          class="form-control"
-          formControlName="bio"
-          placeholder="Tell us about yourself"
-        >
-      </div>
-    
-      <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-  </div> -->
+    </div>
+  </div>
+</div>
+
 </div>

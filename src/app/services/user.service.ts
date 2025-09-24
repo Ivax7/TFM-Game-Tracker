@@ -8,6 +8,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  // CRUD
   getUser(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
@@ -18,5 +19,9 @@ export class UserService {
 
   uploadAvatar(id: number, formData: FormData) {
     return this.http.patch<any>(`${this.apiUrl}/${id}/avatar`, formData);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`)
   }
 }
