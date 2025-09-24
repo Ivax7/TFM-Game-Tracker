@@ -12,7 +12,7 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  updateUser(id: number, data: { displayName?: string; bio?: string }): Observable<any> {
+  updateUser(id: number, data: { displayName?: string; bio?: string; name?:string; }): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}`, data);
   }
 
