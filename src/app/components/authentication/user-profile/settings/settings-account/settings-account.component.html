@@ -1,73 +1,74 @@
 <div class="row">
-  <!-- Columna izquierda (avatar + título) -->
-  <div class="col-12 col-md-4 mb-3 text-center position-relative">
-    <h2 class="mb-3">Username</h2>
+  <!-- Columna única con layout en columna -->
+  <div class="col-12 d-flex flex-column" style="height: 90vh; padding: 2rem;">
 
-    <!-- Avatar actual -->
-    <div class="d-inline-flex align-items-center position-relative">
-      <p type="text" class="mb-0"> &#64;{{ user.name }}</p>
-      <label for="changeUserNameButton"
-        class="ms-4 bg-transparent text-white p-2 d-flex align-items-center justify-content-center"
-        style="cursor: pointer; width: 35px; height: 35px;">
-        <i class="bi bi-pencil-square text-dark fs-4" (click)="showUsernameModal=true"></i>
-      </label>
-    </div>
+    <!-- Username -->
+    <div class="username-block">
+      <h2 class="mb-3">Username</h2>
+      <div class="d-inline-flex align-items-center position-relative">
+        <p type="text" class="mb-0"> &#64;{{ user.name }}</p>
+        <label for="changeUserNameButton"
+          class="ms-4 bg-transparent text-dark p-2 d-flex align-items-center justify-content-center"
+          style="cursor: pointer; width: 35px; height: 35px;">
+          <i class="bi bi-pencil-square fs-4" (click)="showUsernameModal=true"></i>
+        </label>
+      </div>
 
-    <!-- Modal change UserName -->
-    <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showUsernameModal }" *ngIf="showUsernameModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+      <!-- Modal change UserName -->
+      <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showUsernameModal }" *ngIf="showUsernameModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
 
-          <div class="modal-header">
-            <h5 class="modal-title">Change your username</h5>
-            <button type="button" class="btn-close" (click)="showUsernameModal=false"></button>
-          </div>
+            <div class="modal-header">
+              <h5 class="modal-title">Change your username</h5>
+              <button type="button" class="btn-close" (click)="showUsernameModal=false"></button>
+            </div>
 
-          <div class="modal-body text-center">
-            <label for="usernameInput">Username</label>
-            <input type="text" [(ngModel)]="newUsername" class="form-control">
-          </div>
+            <div class="modal-body text-center">
+              <label for="usernameInput">Username</label>
+              <input type="text" [(ngModel)]="newUsername" class="form-control">
+            </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="showUsernameModal=false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="uploadUserNameModal()">Save</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="showUsernameModal=false">Cancel</button>
+              <button type="button" class="btn btn-primary" (click)="uploadUserNameModal()">Save</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-12 col-md-5 mb-3">
-  <h2 class="mb-3">Delete Account</h2>
-  <p>Delete your account and data</p>
+    <!-- Delete Account abajo del todo -->
+    <div class="mt-auto">
+      <h2 class="mb-3 text-danger">Delete Account</h2>
+      <p>Delete your account and data</p>
+      <button class="btn btn-danger" (click)="showDeleteModal = true">
+        Delete Account
+      </button>
 
-  <!-- Botón principal -->
-  <button class="btn btn-danger" (click)="showDeleteModal = true">
-    Delete Account
-  </button>
+      <!-- Modal confirmación -->
+      <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showDeleteModal }" *ngIf="showDeleteModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
 
-  <!-- Modal de confirmación -->
-  <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showDeleteModal }" *ngIf="showDeleteModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm Account Deletion</h5>
+              <button type="button" class="btn-close" (click)="showDeleteModal = false"></button>
+            </div>
 
-        <div class="modal-header">
-          <h5 class="modal-title">Confirm Account Deletion</h5>
-          <button type="button" class="btn-close" (click)="showDeleteModal = false"></button>
+            <div class="modal-body">
+              <p>⚠️ Are you sure you want to delete your account? This action cannot be undone.</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="showDeleteModal = false">Cancel</button>
+              <button type="button" class="btn btn-danger" (click)="confirmDeleteAccount()">Delete</button>
+            </div>
+
+          </div>
         </div>
-
-        <div class="modal-body">
-          <p>⚠️ Are you sure you want to delete your account? This action cannot be undone.</p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="showDeleteModal = false">Cancel</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDeleteAccount()">Delete</button>
-        </div>
-
       </div>
     </div>
-  </div>
-</div>
 
+  </div>
 </div>
