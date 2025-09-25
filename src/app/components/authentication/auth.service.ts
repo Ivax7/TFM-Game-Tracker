@@ -27,11 +27,10 @@ export class AuthService {
 
   login(credentials: { email: string, password: string }) {
     return this.http.post(`${this.baseUrl}/auth/login`, credentials).pipe(
-      tap((user: any) => {
-        localStorage.setItem('user', JSON.stringify(user));
-      })
+      tap((user: any) => this.setStoredUser(user))
     );
   }
+
 
   logout() {
     localStorage.removeItem('user');
