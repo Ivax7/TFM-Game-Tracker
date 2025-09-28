@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth.service';
 import { UserService } from '../../../../../services/user.service';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-settings-email',
@@ -17,12 +15,11 @@ export class SettingsEmailComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private userService: UserService,
-    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.user = this.auth.getCurrentUser();
-    this.newEmail = this.user?.email || ''
+    this.newEmail = ''
   }
 
   // Update email
