@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
-import { JsonPipe } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

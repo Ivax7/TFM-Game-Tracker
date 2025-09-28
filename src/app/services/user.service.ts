@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/users'; // 👈 ajusta si usas proxy
+  private apiUrl = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
@@ -13,7 +13,7 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  updateUser(id: number, data: { displayName?: string; bio?: string; name?:string; }): Observable<any> {
+  updateUser(id: number, data: { displayName?: string; bio?: string; name?:string; email?:string }): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}`, data);
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth.service';
 import { UserService } from '../../../../../services/user.service';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-settings-account',
@@ -29,7 +28,7 @@ export class SettingsAccountComponent implements OnInit {
   // Update username
   uploadUserNameModal() {
     if(!this.newUsername || this.newUsername.trim() === '') {
-      alert('User name cannot be empty.')
+      alert('Username cannot be empty.')
       return;
     }
 

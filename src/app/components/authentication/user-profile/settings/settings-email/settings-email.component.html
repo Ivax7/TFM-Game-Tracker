@@ -1,1 +1,71 @@
-<p>settings-email works!</p>
+<div class="row">
+  <!-- Columna única con layout en columna -->
+  <div class="col-12 d-flex flex-column" style="height: 90vh; padding: 2rem;">
+
+    <!-- Username -->
+    <div class="username-block">
+      <h2 class="mb-3">Email</h2>
+      <p>Your current email address is: {{ user.email }}</p>
+
+      <!-- FORM -->
+      <form #emailForm="ngForm" novalidate class="d-inline-flex align-items-center position-relative">
+        <div class="mb-3">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="name_example@example.com"
+            name="email"
+            [(ngModel)]="newEmail"
+            required
+            email
+            #emailInput="ngModel"
+          />
+
+          <!-- MENSAJES DE ERROR -->
+          <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-danger">
+            <div *ngIf="emailInput.errors?.['required']">
+              Email is required.
+            </div>
+            <div *ngIf="emailInput.errors?.['email']">
+              Please enter a valid email address.
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="emailForm.invalid"
+          (click)="showEmailModal = true"
+        >
+          Update
+        </button>
+      </form>
+
+      <!-- MODAL -->
+      <div class="modal fade" tabindex="-1" [ngClass]="{ 'show d-block': showEmailModal }" *ngIf="showEmailModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm change email</h5>
+              <button type="button" class="btn-close" (click)="showEmailModal=false"></button>
+            </div>
+
+            <div class="modal-body text-center">
+              <p>Are you sure you want to change your email?  
+                You can change it again in the future as many times as you want.
+              </p>
+            </div>
+
+            <div class="modal-footer align-items-center justify-content-center">
+              <button type="button" class="btn btn-secondary" (click)="showEmailModal=false">Cancel</button>
+              <button type="button" class="btn btn-primary" (click)="uploadUserEmailModal()">Save</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

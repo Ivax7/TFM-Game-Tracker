@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class SettingsComponent {
 
-  activeTab: 'profile' | 'account' | 'email' = 'account';
+  activeTab: 'profile' | 'account' | 'email' = 'email';
 
 
 }
