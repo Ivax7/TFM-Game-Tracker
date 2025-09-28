@@ -39,6 +39,7 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
 import { SettingsAccountComponent } from './components/authentication/user-profile/settings/settings-account/settings-account.component';
 import { SettingsProfileComponent } from './components/authentication/user-profile/settings/settings-profile/settings-profile.component';
 import { SettingsEmailComponent } from './components/authentication/user-profile/settings/settings-email/settings-email.component';
+import { FooterComponent } from './components/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,6 +72,7 @@ import { SettingsEmailComponent } from './components/authentication/user-profile
     SettingsAccountComponent,
     SettingsProfileComponent,
     SettingsEmailComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

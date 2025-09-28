@@ -1,0 +1,15 @@
+footer i:hover {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.footer-icon {
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
