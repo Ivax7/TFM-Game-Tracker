@@ -40,6 +40,8 @@ import { SettingsAccountComponent } from './components/authentication/user-profi
 import { SettingsProfileComponent } from './components/authentication/user-profile/settings/settings-profile/settings-profile.component';
 import { SettingsEmailComponent } from './components/authentication/user-profile/settings/settings-email/settings-email.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AppsComponent } from './components/footer/apps/apps.component';
+import { SuggestionsComponent } from './components/footer/suggestions/suggestions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +75,8 @@ import { FooterComponent } from './components/footer/footer.component';
     SettingsProfileComponent,
     SettingsEmailComponent,
     FooterComponent,
+    AppsComponent,
+    SuggestionsComponent,
   ],
   imports: [
     BrowserModule,

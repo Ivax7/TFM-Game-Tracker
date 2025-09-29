@@ -11,6 +11,8 @@ import { WishlistComponent } from './components/authentication/user-profile/wish
 import { CollectionStatusComponent } from './components/authentication/user-profile/collection-status/collection-status.component';
 import { ListsComponent } from './components/authentication/user-profile/lists/lists.component';
 import { SettingsComponent } from './components/authentication/user-profile/settings/settings.component';
+import { AppsComponent } from './components/footer/apps/apps.component';
+import { SuggestionsComponent } from './components/footer/suggestions/suggestions.component';
 
 const routes: Routes = [
   { 
@@ -63,6 +65,14 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent
   },
+  {
+    path: 'apps',
+    component: AppsComponent
+  },
+  {
+    path: 'suggestions',
+    component: SuggestionsComponent
+  }
 
   // { 
   //   path: '**', 

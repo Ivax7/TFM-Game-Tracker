@@ -54,6 +54,13 @@ export class SettingsProfileComponent implements OnInit{
     }
   }
 
+  adjustTextareaHeight(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`
+  }
+
+
   // CHANGE AVATAR
 
   // capture image + open cropper
