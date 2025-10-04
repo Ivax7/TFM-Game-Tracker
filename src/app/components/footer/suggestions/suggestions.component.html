@@ -1,1 +1,58 @@
-<p>suggestions works!</p>
+<div class="container text-center bg-dark p-5 rounded text-white">
+  <h2>Suggestions</h2>
+  <p>Share your ideas for future features!</p>
+
+  <button class="btn btn-primary mt-3" (click)="showSuggestionModal = true">
+    Make a suggestion
+  </button>
+</div>
+
+<!-- List of suggestions -->
+<div class="container mt-4">
+  <h4 class="mb-3 text-white">Community Suggestions</h4>
+
+  <div *ngIf="suggestions.length === 0" class="text-muted">
+    No suggestions yet. Be the first to share!
+  </div>
+
+  <div *ngFor="let s of suggestions" class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">{{ s.title }}</h5>
+      <p class="card-text">{{ s.suggestion }}</p>
+      <small class="text-muted">
+        by {{ s.userName }} • {{ s.date | date: 'short' }}
+      </small>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" [ngClass]="{'show d-block': showSuggestionModal}" *ngIf="showSuggestionModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Make your suggestion</h5>
+        <button type="button" class="btn-close" (click)="showSuggestionModal = false"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" [(ngModel)]="title" class="form-control" maxlength="100" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Suggestion</label>
+          <textarea [(ngModel)]="suggestionText" class="form-control" maxlength="300" rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showSuggestionModal = false">Cancel</button>
+        <button class="btn btn-primary" (click)="uploadSuggestionModal()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
