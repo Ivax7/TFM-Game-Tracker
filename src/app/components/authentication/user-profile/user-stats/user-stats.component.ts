@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { UserGameService } from '../../../../services/user-game.service';
+import { FollowService } from '../../../../services/follow.service';
 
 @Component({
   selector: 'app-user-stats',
@@ -12,9 +13,13 @@ export class UserStatsComponent implements OnInit{
   wishlistCount: number = 0;
   playedGamesCount: number = 0;
 
+  followersCount: number = 0;
+  followingCount: number = 0;
+
   constructor (
     private auth: AuthService,
-    private userGameService: UserGameService
+    private userGameService: UserGameService,
+    private followService: FollowService
   ) {}
 
 
@@ -34,6 +39,14 @@ export class UserStatsComponent implements OnInit{
         this.playedGamesCount = allGames.filter(games => games.status === 'completed' || games.status === 'beaten' || games.status === 'completed').length;
       },
       error: (err) => console.error('Error cargando juegos:', err)
+    });
+
+    this.followService.getFollowersCount(userId).subscribe({
+      next: count => this.followersCount = count
+    });
+
+    this.followService.getFollowingCount(userId).subscribe({
+      next: count => this.followingCount = count
     });
     
 

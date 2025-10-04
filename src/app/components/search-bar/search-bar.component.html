@@ -3,12 +3,12 @@
     <input
       type="text"
       class="form-control"
-      placeholder="Search Games..."
+      placeholder="Search games, @users"
       [formControl]="searchControl"
       (blur)="hideSuggestions()"
       (focus)="showSuggestions = suggestions.length > 0 && hasValidSearchInput()"
       (keydown.enter)="onGeneralSearch()"
-      aria-label="Seach Games"
+      aria-label="Seach games, @users"
       aria-describedby="button-search"
     />
     <button
