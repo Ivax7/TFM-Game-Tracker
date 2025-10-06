@@ -29,20 +29,21 @@
     style="z-index: 1050;"
   >
     <div
-      *ngFor="let game of suggestions"
+      *ngFor="let item of suggestions"
       class="d-flex align-items-center p-2 suggestion-item"
-      (click)="onSuggestionClick(game)"
+      (click)="onSuggestionClick(item)"
       style="cursor: pointer;"
     >
       <img
-        [src]="game.background_image"
-        alt="{{ game.name }}"
+        [src]="isUserSearch ? (item.avatarUrl || 'assets/images/profile-pic.jpg') : item.background_image"
+        [alt]="isUserSearch ? (item.displayName || item.name) : item.name"
+        alt="{{ item.name }}"
         width="50"
         height="50"
         class="me-3 rounded"
         style="object-fit: cover;"
       />
-      <span class="text-truncate">{{ game.name }}</span>
+      <span class="text-truncate">{{ item.name }}</span>
     </div>
   </div>
 </div>

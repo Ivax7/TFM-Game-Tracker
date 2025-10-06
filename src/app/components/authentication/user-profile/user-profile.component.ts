@@ -20,30 +20,37 @@ export class UserProfileComponent implements OnInit {
   followingCount: number = 0;
   isFollowing: boolean = false;
   activeInfo: 'ratings' | 'reviews' = 'ratings';
+  currentUser: any;
+
 
   constructor(
     private userService: UserService,
     public authService: AuthService,
-    private followService: FollowService
+    private followService: FollowService,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
     this.loadUserProfile();
     this.loadFollowInfo();
 
-    
     const currentUser = this.authService.getCurrentUser();
     if(!currentUser) return;
     
-
+    this.auth.user$.subscribe(user => {
+      this.currentUser = user;
+    });
+    
   }
+
+
 
   private loadUserProfile() {
     this.userService.getUser(this.profileUserId).subscribe(user => {
       this.username = user.name || 'Unnamed User';
       this.displayName = user.displayName || '';
       this.bio = user.bio || '';
-      this.avatarUrl = user.avatarUrl || 'assets/images/profile-pic.jpg'; // 🔑 aquí asignamos la URL real o la por defecto
+      this.avatarUrl = user.avatarUrl || 'assets/images/profile-pic.jpg';
     });
   }
 
