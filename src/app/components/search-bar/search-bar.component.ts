@@ -22,14 +22,14 @@ export class SearchBarComponent {
     private router: Router
   ) {
 this.searchControl.valueChanges.pipe(
-  debounceTime(400),
+  debounceTime(1000),
   switchMap((query: string | null) => {
     const trimmed = (query || '').trim();
 
     if (!trimmed) {
       this.suggestions = [];
       this.showSuggestions = false;
-      return []; // Devuelve un array vacío (TypeScript acepta)
+      return [];
     }
 
     if (trimmed.startsWith('@')) {
@@ -42,8 +42,7 @@ this.searchControl.valueChanges.pipe(
       console.log('[SearchBar] Searching games for:', trimmed);
       return this.gameService.searchGames(trimmed);
     }
-  })
-).subscribe((response: any) => {
+  })).subscribe((response: any) => {
   if (this.isUserSearch) {
     this.suggestions = (response || []).slice(0, 5);
     this.suggestions.push({ isSeeAll: true });

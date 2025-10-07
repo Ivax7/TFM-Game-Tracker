@@ -13,6 +13,7 @@ import { ListsComponent } from './components/authentication/user-profile/lists/l
 import { SettingsComponent } from './components/authentication/user-profile/settings/settings.component';
 import { AppsComponent } from './components/footer/apps/apps.component';
 import { SuggestionsComponent } from './components/footer/suggestions/suggestions.component';
+import { VisitedUserProfileComponent } from './components/visited-user-profile/visited-user-profile.component';
 
 const routes: Routes = [
   { 
@@ -40,6 +41,10 @@ const routes: Routes = [
   { 
     path: 'game/:id', 
     component: GameDetailComponent
+  },
+  {
+    path:'users/:id',
+    component: VisitedUserProfileComponent 
   },
   { 
     path: 'search/:query',
@@ -72,7 +77,7 @@ const routes: Routes = [
   {
     path: 'suggestions',
     component: SuggestionsComponent
-  }
+  },
 
   // { 
   //   path: '**', 

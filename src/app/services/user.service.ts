@@ -9,7 +9,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   // CRUD
-  getUser(id: number): Observable<any> {
+  getUser(id: string | number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 

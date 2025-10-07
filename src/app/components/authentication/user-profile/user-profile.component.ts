@@ -44,7 +44,6 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-
   private loadUserProfile() {
     this.userService.getUser(this.profileUserId).subscribe(user => {
       this.username = user.name || 'Unnamed User';
