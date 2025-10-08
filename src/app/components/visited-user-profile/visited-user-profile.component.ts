@@ -30,8 +30,13 @@ export class VisitedUserProfileComponent implements OnInit {
       const userIdParam = params.get('id');
       if (userIdParam) {
         this.profileUserId  = Number(userIdParam);
+        
+        console.log('[VisitedUserProfile] Profile ID:', this.profileUserId);
+
         this.loadUserProfile(this.profileUserId);
         this.loadFollowInfo(this.profileUserId)
+      } else {
+        console.log('No se recibió un id de usuario en la ruta')
       }
     });
   }
@@ -74,25 +79,26 @@ export class VisitedUserProfileComponent implements OnInit {
       return;
     }
 
+    console.log(`[Follow] currentUserId=${currentUserId}, profileUserId=${this.profileUserId}`); // 👈 DEBUG
+
     if (this.isFollowing) {
-      // Unfollow
       this.followService.unfollow(currentUserId, this.profileUserId).subscribe({
         next: () => {
           this.isFollowing = false;
           this.followersCount--;
         },
-        error: err => console.error('Error unfollowing user:', err)
+        error: err => console.log('Error unfollowing user:', err)
       });
     } else {
-      // Follow
       this.followService.follow(currentUserId, this.profileUserId).subscribe({
         next: () => {
           this.isFollowing = true;
           this.followersCount++;
         },
-        error: err => console.error('Error following user:', err)
+        error: err => console.log('Error following user:', err)
       });
     }
   }
+
 }
   
