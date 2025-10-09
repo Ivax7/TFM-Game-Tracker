@@ -14,6 +14,7 @@ import { SettingsComponent } from './components/authentication/user-profile/sett
 import { AppsComponent } from './components/footer/apps/apps.component';
 import { SuggestionsComponent } from './components/footer/suggestions/suggestions.component';
 import { VisitedUserProfileComponent } from './components/visited-user-profile/visited-user-profile.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 const routes: Routes = [
   { 
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path:'users/:id',
     component: VisitedUserProfileComponent 
+  },
+  {
+    path:'users',
+    component: UsersListComponent
   },
   { 
     path: 'search/:query',

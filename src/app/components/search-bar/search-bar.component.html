@@ -8,7 +8,7 @@
       (blur)="hideSuggestions()"
       (focus)="showSuggestions = suggestions.length > 0 && hasValidSearchInput()"
       (keydown.enter)="onGeneralSearch()"
-      aria-label="Seach games, @users"
+      aria-label="Search games, @users"
       aria-describedby="button-search"
     />
     <button
@@ -23,8 +23,7 @@
   </div>
 
   <div
-  *ngIf="showSuggestions && hasValidSearchInput()"
-
+    *ngIf="showSuggestions && hasValidSearchInput()"
     class="suggestion-box shadow bg-white border rounded mt-1 position-absolute w-100"
     style="z-index: 1050;"
   >
@@ -34,16 +33,30 @@
       (click)="onSuggestionClick(item)"
       style="cursor: pointer;"
     >
-      <img
-        [src]="isUserSearch ? (item.avatarUrl || 'assets/images/profile-pic.jpg') : item.background_image"
-        [alt]="isUserSearch ? (item.displayName || item.name) : item.name"
-        alt="{{ item.name }}"
-        width="50"
-        height="50"
-        class="me-3 rounded"
-        style="object-fit: cover;"
-      />
-      <span class="text-truncate">{{ item.name }}</span>
+      <!-- ✅ Caso especial: botón "Ver todos los usuarios" -->
+      <ng-container *ngIf="item.isSeeAll; else normalSuggestion">
+        <div class="w-100 text-center text-primary fw-semibold py-1">
+          See all
+          <span class="fw-bold">
+            {{ searchControl.value?.slice(1) }}
+          </span>
+        </div>
+      </ng-container>
+
+      <!-- 🧩 Sugerencias normales -->
+      <ng-template #normalSuggestion>
+        <img
+          [src]="isUserSearch ? (item.avatarUrl || 'assets/images/profile-pic.jpg') : item.background_image"
+          [alt]="isUserSearch ? (item.displayName || item.name) : item.name"
+          width="50"
+          height="50"
+          class="me-3 rounded"
+          style="object-fit: cover;"
+        />
+        <span class="text-truncate">
+          {{ item.displayName || item.name }}
+        </span>
+      </ng-template>
     </div>
   </div>
 </div>

@@ -42,17 +42,16 @@ this.searchControl.valueChanges.pipe(
       console.log('[SearchBar] Searching games for:', trimmed);
       return this.gameService.searchGames(trimmed);
     }
-  })).subscribe((response: any) => {
-  if (this.isUserSearch) {
-    this.suggestions = (response || []).slice(0, 5);
-    this.suggestions.push({ isSeeAll: true });
-  } else {
-    this.suggestions = response?.results?.slice(0, 5) || [];
-  }
-  this.showSuggestions = this.suggestions.length > 0;
-});
-
-  }
+    })).subscribe((response: any) => {
+    if (this.isUserSearch) {
+      this.suggestions = (response || []).slice(0, 5);
+      this.suggestions.push({ isSeeAll: true });
+    } else {
+      this.suggestions = response?.results?.slice(0, 5) || [];
+    }
+    this.showSuggestions = this.suggestions.length > 0;
+  });
+}
 
   onSuggestionClick(item: any): void {
     this.showSuggestions = false;
@@ -60,7 +59,8 @@ this.searchControl.valueChanges.pipe(
 
     if (this.isUserSearch) {
       if (item.isSeeAll) {
-        this.router.navigate(['/users/search', this.searchControl.value?.slice(1)])
+        this.searchControl.reset();
+        this.router.navigate(['/users']);
       } else {
         this.router.navigate(['/users', item.id])
       }
@@ -69,7 +69,6 @@ this.searchControl.valueChanges.pipe(
     }
   }
 
-  
   onGeneralSearch(): void {
     const query = this.searchControl.value?.trim();
     if (query) {

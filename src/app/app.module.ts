@@ -43,6 +43,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AppsComponent } from './components/footer/apps/apps.component';
 import { SuggestionsComponent } from './components/footer/suggestions/suggestions.component';
 import { VisitedUserProfileComponent } from './components/visited-user-profile/visited-user-profile.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +80,7 @@ import { VisitedUserProfileComponent } from './components/visited-user-profile/v
     AppsComponent,
     SuggestionsComponent,
     VisitedUserProfileComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,
