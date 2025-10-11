@@ -1,8 +1,8 @@
 <div *ngIf="wishlist.length === 0">
-  <p>No hay juegos en tu wishlist.</p>
+  <p>This user has no games in their wishlist.</p>
 </div>
 
-<h1 *ngIf="user">Wishlist by {{ user.name }}</h1>
+<h1 *ngIf="user">Wishlist by {{ user.displayName || user.name }}</h1>
 <h2 *ngIf="user" class="badge bg-primary">{{ wishlist.length }} games</h2>
 <div *ngIf="wishlist.length > 0" class="row g-4">
   <div *ngFor="let game of wishlist.slice().reverse()" class="col-md-6 col-lg-3">

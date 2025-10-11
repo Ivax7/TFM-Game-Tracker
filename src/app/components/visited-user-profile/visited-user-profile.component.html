@@ -24,6 +24,10 @@
     (click)="toggleFollow()">
     {{ isFollowing ? 'Unfollow' : 'Follow' }}
   </button>
+
+  <div class="mt-5">
+    <app-wishlist *ngIf="user" [userId]="profileUserId" [visitedUser]="user"></app-wishlist>
+  </div>
   
 </div>
 

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { switchMap } from "rxjs";
 import { UpdateUserGameDto } from "../models/update-user-game.dto";
 import { EnrichedGame } from "../models/enriched-game.model";
 

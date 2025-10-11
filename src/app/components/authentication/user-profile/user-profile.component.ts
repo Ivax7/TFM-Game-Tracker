@@ -11,83 +11,76 @@ import { FollowService } from '../../../services/follow.service';
 export class UserProfileComponent implements OnInit {
 
   @Input() profileUserId!: number;
-
-  username: string = '';
-  displayName: string = '';
-  bio: string = '';
-  avatarUrl: string = '';
+  currentUser: any;
   followersCount: number = 0;
   followingCount: number = 0;
   isFollowing: boolean = false;
   activeInfo: 'ratings' | 'reviews' = 'ratings';
-  currentUser: any;
 
 
   constructor(
     private userService: UserService,
     public authService: AuthService,
     private followService: FollowService,
-    private auth: AuthService
   ) {}
 
-  ngOnInit() {
-    this.loadUserProfile();
-    this.loadFollowInfo();
+  ngOnInit(): void {
+    if(!this.profileUserId) {
+      const authUser = this.authService.getCurrentUser();
+      if(authUser?.id) {
+        this.profileUserId = authUser.id;
+      } else {
+        console.log('No user autenticated')
+        return
+      }
+    }
 
-    const currentUser = this.authService.getCurrentUser();
-    if(!currentUser) return;
-    
-    this.auth.user$.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.loadUserProfile(this.profileUserId);
+    this.loadFollowInfo(this.profileUserId);
     
   }
 
-
-  private loadUserProfile() {
-    this.userService.getUser(this.profileUserId).subscribe(user => {
-      this.username = user.name || 'Unnamed User';
-      this.displayName = user.displayName || '';
-      this.bio = user.bio || '';
-      this.avatarUrl = user.avatarUrl || 'assets/images/profile-pic.jpg';
+  private loadUserProfile(userId: number): void {
+    this.userService.getUser(userId).subscribe({
+      next: (user) => {
+        this.currentUser = {
+          ...user,
+          avatarUrl: user.avatarUrl || 'assets/images/profile-pic.jpg',
+          displayName: user.displayName || user.name || ''
+        };
+      },
+      error: (err) => console.error('Error loading profile:', err)
     });
   }
 
-  private loadFollowInfo() {
+  private loadFollowInfo(userId: number): void {
     // Follow counts
-    this.followService.getFollowersCount(this.profileUserId).subscribe(count => this.followersCount = count);
-    this.followService.getFollowingCount(this.profileUserId).subscribe(count => this.followingCount = count);
+    this.followService.getFollowersCount(userId).subscribe(count => this.followersCount = count);
+    this.followService.getFollowingCount(userId).subscribe(count => this.followingCount = count);
   
-    const currentUserId = this.authService.getCurrentUser()?.id;
-    if(!currentUserId || currentUserId === this.profileUserId) return;
+    const loggedInId = this.authService.getCurrentUser()?.id;
+    if(!loggedInId || loggedInId === userId) return;
 
-    this.followService.isFollowing(currentUserId, this.profileUserId).subscribe((following: boolean) => {
-      this.isFollowing = following;
-    });
+    this.followService.isFollowing(loggedInId, userId).subscribe((isFollowing: boolean) => (this.isFollowing = isFollowing))
   }
 
   toggleFollow() {
-    const currentUserId = this.authService.getCurrentUser()?.id;
-    if(!currentUserId) {
+    const loggedInId = this.authService.getCurrentUser()?.id;
+    if(!loggedInId) {
       alert('You must be logged in to follow users');
       return;
     }
-    if(this.isFollowing) {
-      this.followService.unfollow(currentUserId, this.profileUserId).subscribe({
-        next: () => {
-          this.isFollowing = false;
-          this.followersCount--;
-        },
-        error: err => console.log(err)
-      });
-    } else {
-      this.followService.follow(currentUserId, this.profileUserId).subscribe({
-        next: () => {
-          this.isFollowing = true;
-          this.followersCount++;
-        },
-        error: err => console.log(err)
-      })
-    }
+
+    const action$ = this.isFollowing
+      ? this.followService.unfollow(loggedInId, this.profileUserId)
+      : this.followService.follow(loggedInId, this.profileUserId);
+
+    action$.subscribe({
+      next: () => {
+        this.isFollowing = !this.isFollowing;
+        this.followersCount += this.isFollowing ? 1 : -1;
+      },
+      error: (err) => console.log('Error toggling follow: ', err)
+    })
   }
 }
