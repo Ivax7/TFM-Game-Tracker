@@ -17,6 +17,11 @@ export class VisitedUserProfileComponent implements OnInit {
   followersCount: number = 0;
   followingCount: number = 0;
 
+  games: any[] = [];
+
+  activeView: 'wishlist' | 'collection' = 'wishlist';
+
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
@@ -99,6 +104,8 @@ export class VisitedUserProfileComponent implements OnInit {
       });
     }
   }
+
+
 
 }
   

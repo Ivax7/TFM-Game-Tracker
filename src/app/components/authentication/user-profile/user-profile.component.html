@@ -10,14 +10,13 @@
   </div>
 
   <div class="d-flex justify-content-center mb-4">
-
-  <!-- ACTIVE INFO BUTTON -->
-  <button class="btn me-2" 
-      [ngClass]="{ 'btn-primary': activeInfo === 'ratings', 'btn-outline-primary': activeInfo !== 'ratings' }" 
-      (click)="activeInfo = 'ratings'">Ratings</button>
-  <button class="btn" 
-      [ngClass]="{ 'btn-primary': activeInfo === 'reviews', 'btn-outline-primary': activeInfo !== 'reviews' }" 
-      (click)="activeInfo = 'reviews'">Reviews</button>
+    <!-- ACTIVE INFO BUTTON -->
+    <button class="btn me-2" 
+        [ngClass]="{ 'btn-primary': activeInfo === 'ratings', 'btn-outline-primary': activeInfo !== 'ratings' }" 
+        (click)="activeInfo = 'ratings'">Ratings</button>
+    <button class="btn" 
+        [ngClass]="{ 'btn-primary': activeInfo === 'reviews', 'btn-outline-primary': activeInfo !== 'reviews' }" 
+        (click)="activeInfo = 'reviews'">Reviews</button>
   </div>
 
     <!-- ACTIVE INFO CONTENT -->

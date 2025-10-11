@@ -1,39 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { UserGameService } from '../../../../services/user-game.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-collection-status',
   templateUrl: './collection-status.component.html',
   styleUrl: './collection-status.component.css'
 })
-export class CollectionStatusComponent implements OnInit {
-  user: any;
-  games: any[] = [];
+export class CollectionStatusComponent implements OnInit, OnChanges {
+  @Input() userId?: number; // Auth user or Visited User 
 
+  games: any[] = [];
   activeTab: 'playing' | 'beaten' | 'completed' | 'abandoned' = 'playing';
-  
+  user: any;
+
   constructor(
     private auth: AuthService,
-    private userGameService: UserGameService
+    private userGameService: UserGameService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.user = this.auth.getCurrentUser();
+    this.reloadData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['userId'] && !changes['userId'].firstChange) {
+      console.log('[UserCollectionStatus] userId changed -> reloading games');
+      this.reloadData();
+    }
+  }
+
+  private reloadData():void {
+    this.loadUser();
     this.loadGames();
   }
-  
-  loadGames() {
-    const userId = this.auth.getCurrentUser()?.id;
-    if (!userId) return;
 
-    // Load enriched info games in the father component
-    this.userGameService.getEnrichedGamesByUser(userId).subscribe(allGames => {
-      this.games = [...allGames].reverse();
-    });
+  private getCurrentUserId(): number | undefined {
+    return this.userId ?? this.auth.getCurrentUser()?.id;
   }
 
-  onGameUpdated(updatedGame: any) {
+  private loadUser(): void {
+    const idToLoad = this.getCurrentUserId();
+    if (!idToLoad) return;
+  
+    if (idToLoad === this.auth.getCurrentUser()?.id) {
+      this.user = this.auth.getCurrentUser();
+    } else {
+      this.userService.getUser(idToLoad).subscribe(user => this.user = user);
+    }
+  }
+  
+  private loadGames(): void {
+    const idToLoad = this.getCurrentUserId();
+    if (!idToLoad) return;
+  
+    this.userGameService.getEnrichedGamesByUser(idToLoad)
+      .subscribe(allGames => this.games = [...allGames].reverse());
+  }
+  
+  onGameUpdated(): void {
     this.loadGames();
   }
 

@@ -13,8 +13,8 @@
   </div>
 
   <div class="mt-3">
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Bio:</strong> {{ user.bio || '' }}</p>
+    <p><strong></strong> {{ user.name }}</p>
+    <p><strong></strong> {{ user.bio || '' }}</p>
   </div>
 
   <button 
@@ -25,10 +25,31 @@
     {{ isFollowing ? 'Unfollow' : 'Follow' }}
   </button>
 
-  <div class="mt-5">
-    <app-wishlist *ngIf="user" [userId]="profileUserId" [visitedUser]="user"></app-wishlist>
-  </div>
+  <!-- NAV para alternar vistas -->
+    <nav class="mt-4">
+      <ul class="nav nav-pills gap-2 justify-content-center">
+        <li class="nav-item">
+          <button class="nav-link" 
+                  [class.active]="activeView === 'wishlist'" 
+                  (click)="activeView = 'wishlist'">
+            Wishlist
+          </button>
+        </li>
+        
+        <li class="nav-item">
+          <button class="nav-link" 
+                  [class.active]="activeView === 'collection'" 
+                  (click)="activeView = 'collection'">
+            Collection
+          </button>
+        </li>
+      </ul>
+    </nav>
   
+  <div class="mt-5">
+    <app-collection-status *ngIf="activeView === 'collection'" [userId]="profileUserId"></app-collection-status>
+    <app-wishlist *ngIf="activeView === 'wishlist'" [userId]="profileUserId" [visitedUser]="user"></app-wishlist>
+  </div>
 </div>
 
 <div *ngIf="!user" class="text-center mt-5">
